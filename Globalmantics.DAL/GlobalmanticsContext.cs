@@ -15,7 +15,8 @@ namespace Globalmantics.DAL
 
             modelBuilder.Entity<CartLine>()
                 .Property(x => x.Description)
-                .HasMaxLength(50);
+                .HasMaxLength(50)
+                .IsRequired();
         }
     }
 }
