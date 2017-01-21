@@ -5,8 +5,8 @@ namespace Globalmantics.DAL
 {
     public class GlobalmanticsContext : DbContext
     {
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartLine> CartLines { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartLine> CartLine { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
