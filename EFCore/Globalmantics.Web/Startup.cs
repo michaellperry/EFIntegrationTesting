@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Globalmantics.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,6 +27,10 @@ namespace Globalmantics.Web
         {
             // Add framework services.
             services.AddMvc();
+
+            // Add the DB Context.
+            services.AddDbContext<GlobalmanticsContext>(options => options
+                .UseSqlServer(Configuration.GetConnectionString("GlobalmanticsContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
