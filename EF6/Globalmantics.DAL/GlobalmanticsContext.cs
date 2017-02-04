@@ -10,6 +10,7 @@ namespace Globalmantics.DAL
             base("GlobalmanticsContext")
         { }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartLine> CartLines { get; set; }
 

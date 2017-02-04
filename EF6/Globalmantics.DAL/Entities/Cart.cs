@@ -7,6 +7,9 @@ namespace Globalmantics.DAL.Entities
     {
         public int CartId { get; set; }
 
+        public User User { get; set; }
+        public int UserId { get; set; }
+
         public virtual ICollection<CartLine> CartLines { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
