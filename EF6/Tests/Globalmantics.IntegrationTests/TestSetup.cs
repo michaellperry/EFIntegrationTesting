@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Globalmantics.IntegrationTests
@@ -41,12 +42,16 @@ namespace Globalmantics.IntegrationTests
         {
             var fileNames = ExecuteSqlQuery(Master, @"
                 SELECT [physical_name] FROM [sys].[master_files]
-                WHERE [database_id] = DB_ID('Globalmantics')", row =>
-                (string)row["physical_name"]);
-            ExecuteSqlCommand(Master, @"
+                WHERE [database_id] = DB_ID('Globalmantics')",
+                row => (string)row["physical_name"]);
+
+            if (fileNames.Any())
+            {
+                ExecuteSqlCommand(Master, @"
                 EXEC sp_detach_db 'Globalmantics'");
 
-            fileNames.ForEach(File.Delete);
+                fileNames.ForEach(File.Delete);
+            }
         }
 
         private static void ExecuteSqlCommand(SqlConnectionStringBuilder connectionStringBuilder, string commandText)
