@@ -13,7 +13,7 @@ namespace Globalmantics.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201702050438131_AddedUser"; }
+            get { return "201702051824189_AddedUser"; }
         }
         
         string IMigrationMetadata.Source

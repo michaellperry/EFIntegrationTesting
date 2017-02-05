@@ -12,19 +12,16 @@ namespace Globalmantics.DAL.Migrations
                 c => new
                     {
                         UserId = c.Int(nullable: false, identity: true),
+                        Email = c.String(nullable: false, maxLength: 100),
                     })
-                .PrimaryKey(t => t.UserId);
+                .PrimaryKey(t => t.UserId)
+                .Index(t => t.Email, unique: true, name: "IX_U_Email");
             
-            AddColumn("dbo.Cart", "UserId", c => c.Int(nullable: false));
-            CreateIndex("dbo.Cart", "UserId");
-            AddForeignKey("dbo.Cart", "UserId", "dbo.User", "UserId", cascadeDelete: true);
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Cart", "UserId", "dbo.User");
-            DropIndex("dbo.Cart", new[] { "UserId" });
-            DropColumn("dbo.Cart", "UserId");
+            DropIndex("dbo.User", "IX_U_Email");
             DropTable("dbo.User");
         }
     }

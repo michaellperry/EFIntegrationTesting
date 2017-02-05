@@ -13,8 +13,6 @@ namespace Globalmantics.DAL
         { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartLine> CartLines { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,11 +24,6 @@ namespace Globalmantics.DAL
                 .IsRequired()
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(
                     new IndexAttribute("IX_U_Email") { IsUnique = true }));
-
-            modelBuilder.Entity<CartLine>()
-                .Property(x => x.Description)
-                .HasMaxLength(50)
-                .IsRequired();
         }
     }
 }
