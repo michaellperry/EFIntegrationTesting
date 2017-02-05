@@ -2,7 +2,7 @@ using System.Data.Entity.Migrations;
 
 namespace Globalmantics.DAL.Migrations
 {
-    internal sealed class GlobalmanticsConfiguration : DbMigrationsConfiguration<GlobalmanticsContext>
+    public sealed class GlobalmanticsConfiguration : DbMigrationsConfiguration<GlobalmanticsContext>
     {
         public GlobalmanticsConfiguration()
         {

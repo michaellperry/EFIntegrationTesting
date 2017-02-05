@@ -11,8 +11,37 @@ using System.Reflection;
 
 namespace Globalmantics.IntegrationTests
 {
+    [SetUpFixture]
     public class TestSetup
     {
+        [OneTimeSetUp]
+        public void SetUpDatabase()
+        {
+            ExecuteSqlCommand(Master, $@"
+                CREATE DATABASE [Globalmantics]
+                ON (NAME = 'Globalmantics',
+                FILENAME = '{Filename}')");
+
+            var migration = new MigrateDatabaseToLatestVersion<
+                GlobalmanticsContext, GlobalmanticsConfiguration>();
+            migration.InitializeDatabase(new GlobalmanticsContext());
+        }
+
+        [OneTimeTearDown]
+        public void TearDownDatabase()
+        {
+            var fileNames = ExecuteSqlQuery(Master, @"
+                SELECT [physical_name] FROM [sys].[master_files]
+                WHERE [database_id] = DB_ID('Globalmantics')",
+                row => (string)row["physical_name"]);
+
+            ExecuteSqlCommand(Master, @"
+                ALTER DATABASE [Globalmantics] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                EXEC sp_detach_db 'Globalmantics'");
+
+            fileNames.ForEach(File.Delete);
+        }
+
         private static void ExecuteSqlCommand(
             SqlConnectionStringBuilder connectionStringBuilder,
             string commandText)
@@ -51,5 +80,18 @@ namespace Globalmantics.IntegrationTests
             }
             return result;
         }
+
+        private static SqlConnectionStringBuilder Master =>
+            new SqlConnectionStringBuilder
+            {
+                DataSource = @"(LocalDB)\MSSQLLocalDB",
+                InitialCatalog = "master",
+                IntegratedSecurity = true
+            };
+
+        private static string Filename => Path.Combine(
+            Path.GetDirectoryName(
+                Assembly.GetExecutingAssembly().Location),
+            "Globalmantics.mdf");
     }
 }
