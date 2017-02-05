@@ -6,7 +6,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Globalmantics.DAL
 {
-    public class GlobalmanticsContext : DbContext
+    internal class GlobalmanticsContext : DbContext
     {
         public GlobalmanticsContext() :
             base("GlobalmanticsContext")
