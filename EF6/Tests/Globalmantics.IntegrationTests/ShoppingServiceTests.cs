@@ -15,7 +15,10 @@ namespace Globalmantics.IntegrationTests
         {
             var context = new GlobalmanticsContext();
 
-            var user = new User();
+            var user = new User
+            {
+                Email = "test@globalmantics.com"
+            };
             context.Users.Add(user);
             context.SaveChanges();
 
