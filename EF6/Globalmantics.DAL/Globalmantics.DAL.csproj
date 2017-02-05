@@ -65,7 +65,7 @@
     <Compile Include="Migrations\201702050508035_AddedUserEmail.Designer.cs">
       <DependentUpon>201702050508035_AddedUserEmail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\GlobalmanticsConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

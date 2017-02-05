@@ -2,9 +2,9 @@ using System.Data.Entity.Migrations;
 
 namespace Globalmantics.DAL.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<GlobalmanticsContext>
+    public sealed class GlobalmanticsConfiguration : DbMigrationsConfiguration<GlobalmanticsContext>
     {
-        public Configuration()
+        public GlobalmanticsConfiguration()
         {
             AutomaticMigrationsEnabled = false;
         }
