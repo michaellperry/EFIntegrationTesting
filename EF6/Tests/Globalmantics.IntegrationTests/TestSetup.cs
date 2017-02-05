@@ -48,7 +48,8 @@ namespace Globalmantics.IntegrationTests
             if (fileNames.Any())
             {
                 ExecuteSqlCommand(Master, @"
-                EXEC sp_detach_db 'Globalmantics'");
+                    ALTER DATABASE [Globalmantics] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                    EXEC sp_detach_db 'Globalmantics'");
 
                 fileNames.ForEach(File.Delete);
             }
