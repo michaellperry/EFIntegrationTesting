@@ -21,13 +21,14 @@ namespace Globalmantics.IntegrationTests
 
             var user = new User();
             context.Users.Add(user);
+            context.SaveChanges();
 
             var shoppingService = new ShoppingService(context);
 
-            shoppingService.AddToCart(user, "Widgets", 3, 4.98m);
+            shoppingService.AddToCart(user.UserId, "Widgets", 3, 4.98m);
             context.SaveChanges();
 
-            var currentCart = shoppingService.GetCurrentCart(user);
+            var currentCart = shoppingService.GetCurrentCart(user.UserId);
             var lines = currentCart.CartLines
                 .Select(cl => $"{cl.Description}: {cl.Quantity}@{cl.UnitPrice}")
                 .ToArray();

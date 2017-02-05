@@ -2,8 +2,6 @@
 {
     public class User
     {
-        public User()
-        {
-        }
+        public int UserId { get; set; }
     }
 }

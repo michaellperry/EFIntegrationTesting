@@ -2,6 +2,7 @@
 using Globalmantics.DAL.Entities;
 using System.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace Globalmantics.Logic
 {
@@ -14,10 +15,11 @@ namespace Globalmantics.Logic
             _context = context;
         }
 
-        public Cart GetCurrentCart(User user)
+        public Cart GetCurrentCart(int userId)
         {
             var currentCart = _context.Carts
-                .Where(c => c.User == user)
+                .Include("CartLines")
+                .Where(c => c.UserId == userId)
                 .OrderByDescending(c => c.CreatedDateTime)
                 .FirstOrDefault();
 
@@ -25,16 +27,19 @@ namespace Globalmantics.Logic
             {
                 currentCart = new Cart
                 {
-                    User = user
+                    UserId = userId,
+                    CreatedDateTime = DateTime.Now,
+                    CartLines = new List<CartLine>()
                 };
+                _context.Carts.Add(currentCart);
             }
 
             return currentCart;
         }
 
-        public void AddToCart(User user, string description, decimal quantity, decimal unitPrice)
+        public void AddToCart(int userId, string description, decimal quantity, decimal unitPrice)
         {
-            var currentCart = GetCurrentCart(user);
+            var currentCart = GetCurrentCart(userId);
 
             currentCart.CartLines.Add(new CartLine
             {
