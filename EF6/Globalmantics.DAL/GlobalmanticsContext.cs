@@ -6,13 +6,14 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Globalmantics.DAL
 {
-    internal class GlobalmanticsContext : DbContext
+    public class GlobalmanticsContext : DbContext
     {
         public GlobalmanticsContext() :
             base("GlobalmanticsContext")
         { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
