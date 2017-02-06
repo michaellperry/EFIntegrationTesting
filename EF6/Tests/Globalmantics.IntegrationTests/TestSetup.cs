@@ -17,6 +17,18 @@ namespace Globalmantics.IntegrationTests
         [OneTimeSetUp]
         public void SetUpDatabase()
         {
+            DestroyDatabase();
+            CreateDatabase();
+        }
+
+        [OneTimeTearDown]
+        public void TearDownDatabase()
+        {
+            DestroyDatabase();
+        }
+
+        private static void CreateDatabase()
+        {
             ExecuteSqlCommand(Master, $@"
                 CREATE DATABASE [Globalmantics]
                 ON (NAME = 'Globalmantics',
@@ -27,19 +39,21 @@ namespace Globalmantics.IntegrationTests
             migration.InitializeDatabase(new GlobalmanticsContext());
         }
 
-        [OneTimeTearDown]
-        public void TearDownDatabase()
+        private static void DestroyDatabase()
         {
             var fileNames = ExecuteSqlQuery(Master, @"
                 SELECT [physical_name] FROM [sys].[master_files]
                 WHERE [database_id] = DB_ID('Globalmantics')",
                 row => (string)row["physical_name"]);
 
-            ExecuteSqlCommand(Master, @"
-                ALTER DATABASE [Globalmantics] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-                EXEC sp_detach_db 'Globalmantics'");
+            if (fileNames.Any())
+            {
+                ExecuteSqlCommand(Master, @"
+                    ALTER DATABASE [Globalmantics] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                    EXEC sp_detach_db 'Globalmantics'");
 
-            fileNames.ForEach(File.Delete);
+                fileNames.ForEach(File.Delete);
+            }
         }
 
         private static void ExecuteSqlCommand(
