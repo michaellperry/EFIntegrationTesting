@@ -11,7 +11,7 @@ namespace Globalmantics.DAL
         }
 
         public DbSet<User> User { get; set; }
-        //public DbSet<CartLine> CartLine { get; set; }
+        public DbSet<Cart> Cart { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,11 +22,6 @@ namespace Globalmantics.DAL
             modelBuilder.Entity<User>()
                 .HasIndex(x => x.Email)
                 .IsUnique();
-
-            //modelBuilder.Entity<CartLine>()
-            //    .Property(x => x.Description)
-            //    .HasMaxLength(50)
-            //    .IsRequired();
         }
     }
 }
