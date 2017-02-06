@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26127.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9843D521-6786-4513-924B-24F8DA7F43B6}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,13 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{71428019-FA2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B4974960-B7F7-46D1-A399-229D5BEB2DDC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Globalmantics.DAL", "src\Globalmantics.DAL\Globalmantics.DAL.xproj", "{9439D44E-E1DF-4B41-8717-A5D997120AE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Globalmantics.DAL", "src\Globalmantics.DAL\Globalmantics.DAL.csproj", "{9439D44E-E1DF-4B41-8717-A5D997120AE5}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Globalmantics.Logic", "src\Globalmantics.Logic\Globalmantics.Logic.xproj", "{830BBED1-0AFC-46A9-BFA3-EF7974BFA424}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Globalmantics.Logic", "src\Globalmantics.Logic\Globalmantics.Logic.csproj", "{830BBED1-0AFC-46A9-BFA3-EF7974BFA424}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Globalmantics.Web", "src\Globalmantics.Web\Globalmantics.Web.xproj", "{64239B98-1421-426C-AD0B-14A6DED201F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Globalmantics.Web", "src\Globalmantics.Web\Globalmantics.Web.csproj", "{64239B98-1421-426C-AD0B-14A6DED201F9}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Globalmantics.IntegrationTests", "test\Globalmantics.IntegrationTests\Globalmantics.IntegrationTests.xproj", "{7838BEB2-D4A8-48DA-9FB5-EE8C4DA44BD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Globalmantics.IntegrationTests", "test\Globalmantics.IntegrationTests\Globalmantics.IntegrationTests.csproj", "{7838BEB2-D4A8-48DA-9FB5-EE8C4DA44BD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
