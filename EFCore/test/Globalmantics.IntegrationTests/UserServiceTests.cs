@@ -2,19 +2,19 @@
 using Globalmantics.DAL;
 using Globalmantics.DAL.Entities;
 using Globalmantics.Logic;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace Globalmantics.IntegrationTests
 {
-    [TestFixture]
+    [Collection("Integration test collection")]
     public class UserServiceTests : IntegrationTestBase
     {
-        [Test]
+        [Fact]
         public void CanCreateUser()
         {
             var context = GivenGlobalmanticsContext();

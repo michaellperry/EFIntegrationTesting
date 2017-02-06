@@ -1,6 +1,5 @@
 ﻿using Globalmantics.DAL;
 using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,18 +9,15 @@ using System.Reflection;
 
 namespace Globalmantics.IntegrationTests
 {
-    [SetUpFixture]
-    public class TestSetup : IntegrationTestBase
+    public class TestSetup : IntegrationTestBase, IDisposable
     {
-        [OneTimeSetUp]
-        public void SetUpDatabase()
+        public TestSetup()
         {
             DestroyDatabase();
             CreateDatabase();
         }
 
-        [OneTimeTearDown]
-        public void TearDownDatabase()
+        public void Dispose()
         {
             DestroyDatabase();
         }
