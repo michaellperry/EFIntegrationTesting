@@ -2,9 +2,12 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "FluentAssertions": "4.19.0",
     "Globalmantics.DAL": "1.0.0-*",
+    "Globalmantics.Logic": "1.0.0-*",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
-    "NETStandard.Library": "1.6.1"
+    "NETStandard.Library": "1.6.1",
+    "NUnit": "3.6.0"
   },
 
   "frameworks": {
