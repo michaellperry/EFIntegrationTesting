@@ -10,6 +10,8 @@ namespace Globalmantics.Web
 {
     public class Startup
     {
+        private IConfigurationRoot _configuration;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -17,10 +19,8 @@ namespace Globalmantics.Web
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            _configuration = builder.Build();
         }
-
-        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -30,13 +30,15 @@ namespace Globalmantics.Web
 
             // Add the DB Context.
             services.AddDbContext<GlobalmanticsContext>(options => options
-                .UseSqlServer(Configuration.GetConnectionString("GlobalmanticsContext")));
+                .UseSqlServer(_configuration.GetConnectionString("GlobalmanticsContext")));
+
+            services.AddSingleton<IConfigurationRoot>(_configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
