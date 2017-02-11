@@ -29,8 +29,9 @@ namespace Globalmantics.IntegrationTests
                 ON (NAME = 'Globalmantics',
                 FILENAME = '{Filename}')");
 
-            var context = GivenGlobalmanticsContext();
-            context.Database.Migrate();
+            //var migration = new MigrateDatabaseToLatestVersion<
+            //    GlobalmanticsContext, GlobalmanticsConfiguration>();
+            //migration.InitializeDatabase(new GlobalmanticsContext());
         }
 
         private static void DestroyDatabase()
