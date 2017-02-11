@@ -8,7 +8,17 @@ namespace Globalmantics.IntegrationTests
     {
         protected static GlobalmanticsContext GivenGlobalmanticsContext()
         {
-            return null;
+            return new GlobalmanticsContext(new DbContextOptionsBuilder()
+                .UseSqlServer(Globalmantics.ConnectionString)
+                .Options);
         }
+
+        private static SqlConnectionStringBuilder Globalmantics =>
+            new SqlConnectionStringBuilder
+            {
+                DataSource = @"(LocalDB)\MSSQLLocalDB",
+                InitialCatalog = "GlobalmanticsCore",
+                IntegratedSecurity = true
+            };
     }
 }
