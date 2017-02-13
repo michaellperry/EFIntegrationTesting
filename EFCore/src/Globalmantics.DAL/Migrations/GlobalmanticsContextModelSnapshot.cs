@@ -21,40 +21,39 @@ namespace Globalmantics.DAL.Migrations
                     b.Property<int>("CartId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDateTime");
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("UserId");
 
                     b.HasKey("CartId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cart");
                 });
 
-            modelBuilder.Entity("Globalmantics.DAL.Entities.CartLine", b =>
+            modelBuilder.Entity("Globalmantics.DAL.Entities.User", b =>
                 {
-                    b.Property<int>("CartLineId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CartId");
-
-                    b.Property<string>("Description")
+                    b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(100);
 
-                    b.Property<decimal>("Quantity");
+                    b.HasKey("UserId");
 
-                    b.Property<decimal>("UnitPrice");
+                    b.HasIndex("Email")
+                        .IsUnique();
 
-                    b.HasKey("CartLineId");
-
-                    b.HasIndex("CartId");
-
-                    b.ToTable("CartLine");
+                    b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Globalmantics.DAL.Entities.CartLine", b =>
+            modelBuilder.Entity("Globalmantics.DAL.Entities.Cart", b =>
                 {
-                    b.HasOne("Globalmantics.DAL.Entities.Cart", "Cart")
-                        .WithMany("CartLines")
-                        .HasForeignKey("CartId")
+                    b.HasOne("Globalmantics.DAL.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
