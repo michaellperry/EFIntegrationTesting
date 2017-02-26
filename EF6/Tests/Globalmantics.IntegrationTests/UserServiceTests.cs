@@ -3,11 +3,6 @@ using Globalmantics.DAL;
 using Globalmantics.DAL.Entities;
 using Globalmantics.Logic;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Globalmantics.IntegrationTests
 {
