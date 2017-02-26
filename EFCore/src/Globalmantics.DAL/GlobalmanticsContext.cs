@@ -1,5 +1,6 @@
 ﻿using Globalmantics.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Globalmantics.DAL
 {
@@ -22,6 +23,26 @@ namespace Globalmantics.DAL
             modelBuilder.Entity<User>()
                 .HasIndex(x => x.Email)
                 .IsUnique();
+
+            modelBuilder.Entity<CatalogItem>()
+                .Property(x => x.Description)
+                .HasMaxLength(100)
+                .IsRequired();
+            modelBuilder.Entity<CatalogItem>()
+                .Property(x => x.UnitPrice)
+                .HasColumnType("decimal(18,2)");
+            modelBuilder.Entity<CatalogItem>()
+                .Property(x => x.Sku)
+                .HasMaxLength(20)
+                .IsRequired();
+            modelBuilder.Entity<CatalogItem>()
+                .HasIndex(x => x.Sku)
+                .IsUnique();
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(x => x.CatalogItem)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

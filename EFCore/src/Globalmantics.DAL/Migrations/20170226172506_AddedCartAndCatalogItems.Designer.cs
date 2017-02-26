@@ -8,9 +8,10 @@ using Globalmantics.DAL;
 namespace Globalmantics.DAL.Migrations
 {
     [DbContext(typeof(GlobalmanticsContext))]
-    partial class GlobalmanticsContextModelSnapshot : ModelSnapshot
+    [Migration("20170226172506_AddedCartAndCatalogItems")]
+    partial class AddedCartAndCatalogItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
