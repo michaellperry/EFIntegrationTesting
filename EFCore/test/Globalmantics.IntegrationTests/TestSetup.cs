@@ -31,6 +31,7 @@ namespace Globalmantics.IntegrationTests
 
             var context = GivenGlobalmanticsContext();
             context.Database.Migrate();
+            context.Seed();
         }
 
         private static void DestroyDatabase()
