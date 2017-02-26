@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\CatalogItem.cs" />
+    <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="GlobalmanticsContext.cs" />
     <Compile Include="Migrations\201702051824189_AddedUser.cs" />

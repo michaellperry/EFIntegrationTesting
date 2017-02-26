@@ -25,6 +25,11 @@ namespace Globalmantics.DAL
                 .IsRequired()
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(
                     new IndexAttribute("IX_U_Email") { IsUnique = true }));
+
+            modelBuilder.Entity<CatalogItem>()
+                .Property(x => x.Description)
+                .HasMaxLength(100)
+                .IsRequired();
         }
     }
 }
