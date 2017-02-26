@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Globalmantics.IntegrationTests
 {
+    [Rollback]
     [TestFixture]
     public class CartServiceTests
     {
