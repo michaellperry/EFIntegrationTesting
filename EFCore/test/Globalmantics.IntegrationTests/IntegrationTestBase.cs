@@ -6,18 +6,21 @@ namespace Globalmantics.IntegrationTests
 {
     public class IntegrationTestBase
     {
-        protected static GlobalmanticsContext GivenGlobalmanticsContext()
+        protected static GlobalmanticsContext GivenGlobalmanticsContext(bool beginTransaction = true)
         {
-            return new GlobalmanticsContext(new DbContextOptionsBuilder()
+            var context = new GlobalmanticsContext(new DbContextOptionsBuilder()
                 .UseSqlServer(Globalmantics.ConnectionString)
                 .Options);
+            //if (beginTransaction)
+                //context.Database.BeginTransaction();
+            return context;
         }
 
         private static SqlConnectionStringBuilder Globalmantics =>
             new SqlConnectionStringBuilder
             {
                 DataSource = @"(LocalDB)\MSSQLLocalDB",
-                InitialCatalog = "GlobalmanticsCore",
+                InitialCatalog = "Globalmantics",
                 IntegratedSecurity = true
             };
     }

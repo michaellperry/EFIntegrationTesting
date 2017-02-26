@@ -29,9 +29,12 @@ namespace Globalmantics.IntegrationTests
                 ON (NAME = 'Globalmantics',
                 FILENAME = '{Filename}')");
 
-            var context = GivenGlobalmanticsContext();
-            context.Database.Migrate();
-            context.Seed();
+            using (var context = GivenGlobalmanticsContext(beginTransaction: false))
+            {
+                context.Database.Migrate();
+                context.Seed();
+                context.SaveChanges();
+            }
         }
 
         private static void DestroyDatabase()

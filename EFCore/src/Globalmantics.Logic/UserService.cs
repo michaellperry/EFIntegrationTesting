@@ -1,6 +1,5 @@
 ﻿using Globalmantics.DAL;
 using Globalmantics.DAL.Entities;
-using System;
 using System.Linq;
 
 namespace Globalmantics.Logic
@@ -16,10 +15,16 @@ namespace Globalmantics.Logic
 
         public User GetUserByEmail(string emailAddress)
         {
-            var user = _context.User.Add(new User
+            var user = _context.User
+                .FirstOrDefault(x => x.Email == emailAddress);
+
+            if (user == null)
             {
-                Email = emailAddress
-            }).Entity;
+                user = _context.User.Add(new User
+                {
+                    Email = emailAddress
+                }).Entity;
+            }
 
             return user;
         }

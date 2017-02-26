@@ -11,15 +11,17 @@ namespace Globalmantics.IntegrationTests
         [Fact]
         public void CanCreateUser()
         {
-            var context = GivenGlobalmanticsContext();
-            var userSerice = new UserService(context);
+            using (var context = GivenGlobalmanticsContext())
+            {
+                var userSerice = new UserService(context);
 
-            User user = userSerice.GetUserByEmail(
-                "test@globalmantics.com");
-            context.SaveChanges();
+                User user = userSerice.GetUserByEmail(
+                    "test@globalmantics.com");
+                context.SaveChanges();
 
-            user.UserId.Should().NotBe(0);
-            user.Email.Should().Be("test@globalmantics.com");
+                user.UserId.Should().NotBe(0);
+                user.Email.Should().Be("test@globalmantics.com");
+            }
         }
     }
 }
