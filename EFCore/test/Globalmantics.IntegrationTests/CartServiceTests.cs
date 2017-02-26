@@ -9,7 +9,7 @@ namespace Globalmantics.IntegrationTests
     public class CartServiceTests : IntegrationTestBase
     {
         [Fact]
-        public void _02CartIsInitiallyEmpty()
+        public void CartIsInitiallyEmpty()
         {
             using (var context = GivenGlobalmanticsContext())
             {
@@ -23,25 +23,6 @@ namespace Globalmantics.IntegrationTests
                 context.SaveChanges();
 
                 cart.CartItems.Count().Should().Be(0);
-            }
-        }
-
-        [Fact]
-        public void _01CanAddItemToCart()
-        {
-            using (var context = GivenGlobalmanticsContext())
-            {
-                var userService = new UserService(context);
-                var cartService = new CartService(context);
-
-                var user = userService.GetUserByEmail("test@globalmantics.com");
-                context.SaveChanges();
-
-                var cart = cartService.GetCartForUser(user);
-                cartService.AddItemToCart(cart, "CAFE-314", 2);
-                context.SaveChanges();
-
-                cart.CartItems.Count().Should().Be(1);
             }
         }
     }

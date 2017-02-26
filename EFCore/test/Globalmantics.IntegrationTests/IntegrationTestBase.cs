@@ -11,8 +11,6 @@ namespace Globalmantics.IntegrationTests
             var context = new GlobalmanticsContext(new DbContextOptionsBuilder()
                 .UseSqlServer(Globalmantics.ConnectionString)
                 .Options);
-            //if (beginTransaction)
-                //context.Database.BeginTransaction();
             return context;
         }
 
