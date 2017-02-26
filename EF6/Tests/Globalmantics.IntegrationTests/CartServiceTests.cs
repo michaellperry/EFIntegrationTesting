@@ -22,6 +22,8 @@ namespace Globalmantics.IntegrationTests
             var cartService = new CartService(context);
 
             var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.SaveChanges();
+
             var cart = cartService.GetCartForUser(user);
 
             cart.CartItems.Count().Should().Be(0);

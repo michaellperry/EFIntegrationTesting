@@ -1,21 +1,36 @@
-﻿using System;
-using Globalmantics.DAL;
+﻿using Globalmantics.DAL;
 using Globalmantics.DAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Globalmantics.Logic
 {
     public class CartService
     {
-        private GlobalmanticsContext context;
+        private readonly GlobalmanticsContext _context;
 
         public CartService(GlobalmanticsContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public Cart GetCartForUser(User user)
         {
-            throw new NotImplementedException();
+            var cart = _context.Carts
+                .Include("CartItems")
+                .FirstOrDefault(x => x.UserId == user.UserId);
+
+            if (cart == null)
+            {
+                cart = _context.Carts.Add(new Cart
+                {
+                    UserId = user.UserId,
+                    CartItems = new List<CartItem>()
+                });
+            }
+
+            return cart;
         }
     }
 }

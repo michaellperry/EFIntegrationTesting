@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201702052203275_AddedCart.Designer.cs">
       <DependentUpon>201702052203275_AddedCart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702260417029_AddedCartAndCatalogItems.cs" />
+    <Compile Include="Migrations\201702260417029_AddedCartAndCatalogItems.Designer.cs">
+      <DependentUpon>201702260417029_AddedCartAndCatalogItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\GlobalmanticsConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -75,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702052203275_AddedCart.resx">
       <DependentUpon>201702052203275_AddedCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702260417029_AddedCartAndCatalogItems.resx">
+      <DependentUpon>201702260417029_AddedCartAndCatalogItems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

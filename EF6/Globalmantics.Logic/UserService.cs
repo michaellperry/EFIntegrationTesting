@@ -16,10 +16,16 @@ namespace Globalmantics.Logic
 
         public User GetUserByEmail(string emailAddress)
         {
-            var user = _context.Users.Add(new User
+            var user = _context.Users
+                .FirstOrDefault(x => x.Email == emailAddress);
+
+            if (user == null)
             {
-                Email = emailAddress
-            });
+                user = _context.Users.Add(new User
+                {
+                    Email = emailAddress
+                });
+            }
 
             return user;
         }
