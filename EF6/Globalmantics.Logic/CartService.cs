@@ -32,5 +32,10 @@ namespace Globalmantics.Logic
 
             return cart;
         }
+
+        public void AddItemToCart(Cart cart, string sku, int quantity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

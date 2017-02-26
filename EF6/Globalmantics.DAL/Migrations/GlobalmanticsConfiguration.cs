@@ -1,3 +1,4 @@
+using Globalmantics.DAL.Entities;
 using System.Data.Entity.Migrations;
 
 namespace Globalmantics.DAL.Migrations
@@ -11,6 +12,22 @@ namespace Globalmantics.DAL.Migrations
 
         protected override void Seed(GlobalmanticsContext context)
         {
+            context.CatalogItems.AddOrUpdate(x => x.Sku, new CatalogItem
+            {
+                Sku = "CAFE-314",
+                Description = "1 Pound Guatemalan Coffee Beans",
+                UnitPrice = 18.80m
+            }, new CatalogItem
+            {
+                Sku = "CAFE-272",
+                Description = "1 Pound Etheopian Coffee Beans",
+                UnitPrice = 6.60m
+            }, new CatalogItem
+            {
+                Sku = "DR-4142",
+                Description = "Drum roasting kit",
+                UnitPrice = 425.00m
+            });
         }
     }
 }
