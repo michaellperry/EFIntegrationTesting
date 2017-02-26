@@ -26,6 +26,7 @@ namespace Globalmantics.Logic
                 cart = _context.Carts.Add(new Cart
                 {
                     UserId = user.UserId,
+                    CreatedAt = DateTime.Now,
                     CartItems = new List<CartItem>()
                 });
             }
@@ -35,7 +36,14 @@ namespace Globalmantics.Logic
 
         public void AddItemToCart(Cart cart, string sku, int quantity)
         {
-            throw new NotImplementedException();
+            var catalogItem = _context.CatalogItems
+                .FirstOrDefault(x => x.Sku == sku);
+
+            cart.CartItems.Add(new CartItem
+            {
+                CatalogItem = catalogItem,
+                Quantity = quantity
+            });
         }
     }
 }
