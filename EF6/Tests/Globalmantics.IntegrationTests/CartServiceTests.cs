@@ -20,6 +20,7 @@ namespace Globalmantics.IntegrationTests
             context.SaveChanges();
 
             var cart = cartService.GetCartForUser(user);
+            context.SaveChanges();
 
             cart.CartItems.Count().Should().Be(0);
         }
