@@ -30,6 +30,14 @@ namespace Globalmantics.DAL
                 .Property(x => x.Description)
                 .HasMaxLength(100)
                 .IsRequired();
+            modelBuilder.Entity<CatalogItem>()
+                .Property(x => x.UnitPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<CartItem>()
+                .HasRequired(x => x.CatalogItem)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }
