@@ -5,7 +5,7 @@ using System.Transactions;
 
 namespace Globalmantics.IntegrationTests
 {
-    public class RollbackAttribute : Attribute, ITestAction
+    public class IsolatedAttribute : Attribute, ITestAction
     {
         private TransactionScope _scope;
         public ActionTargets Targets => ActionTargets.Test;
