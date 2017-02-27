@@ -3,10 +3,11 @@ using Globalmantics.DAL;
 using Globalmantics.Logic;
 using NUnit.Framework;
 using System.Linq;
+using Globalmantics.DAL.Entities;
+using System;
 
 namespace Globalmantics.IntegrationTests
 {
-    [Isolated]
     [TestFixture]
     public class CartServiceTests
     {
@@ -17,8 +18,7 @@ namespace Globalmantics.IntegrationTests
             var userService = new UserService(context);
             var cartService = new CartService(context);
 
-            var user = userService.GetUserByEmail("test@globalmantics.com");
-            context.SaveChanges();
+            var user = GivenUser(context, userService);
 
             var cart = cartService.GetCartForUser(user);
             context.SaveChanges();
@@ -33,8 +33,7 @@ namespace Globalmantics.IntegrationTests
             var userService = new UserService(context);
             var cartService = new CartService(context);
 
-            var user = userService.GetUserByEmail("test@globalmantics.com");
-            context.SaveChanges();
+            var user = GivenUser(context, userService);
 
             var cart = cartService.GetCartForUser(user);
             context.SaveChanges();
@@ -43,6 +42,14 @@ namespace Globalmantics.IntegrationTests
             context.SaveChanges();
 
             cart.CartItems.Count().Should().Be(1);
+        }
+
+        private static User GivenUser(GlobalmanticsContext context, UserService userService)
+        {
+            var user = userService.GetUserByEmail(
+                $"test{Guid.NewGuid().ToString()}@globalmantics.com");
+            context.SaveChanges();
+            return user;
         }
     }
 }
