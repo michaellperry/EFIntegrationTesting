@@ -1,21 +1,16 @@
 using FluentAssertions;
-using Globalmantics.DAL;
 using Globalmantics.Logic;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Xunit;
 
 namespace Globalmantics.UnitTests
 {
-    public class CartServiceTests
+    public class CartServiceTests : UnitTestBase
     {
         [Fact]
         public void CanAddItemToCart()
         {
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase()
-                .Options;
-            using (var context = new GlobalmanticsContext(options))
+            using (var context = GivenGlobalmanticsContext())
             {
                 var userService = new UserService(context);
                 var cartService = new CartService(context);
