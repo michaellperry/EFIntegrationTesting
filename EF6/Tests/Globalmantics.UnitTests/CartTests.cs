@@ -1,11 +1,6 @@
 ﻿using FluentAssertions;
 using Globalmantics.Domain;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Globalmantics.UnitTests
 {
@@ -15,7 +10,7 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CartIsInitiallyEmpty()
         {
-            var cart = new Cart();
+            var cart = Cart.Create(0);
 
             cart.CartItems.Count.Should().Be(0);
         }
@@ -23,7 +18,7 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CanAddItemToCart()
         {
-            var cart = new Cart();
+            var cart = Cart.Create(0);
 
             cart.AddItem(new CatalogItem() { Sku = "CAFE-314" }, 2);
 

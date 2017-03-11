@@ -23,12 +23,7 @@ namespace Globalmantics.Logic
 
             if (cart == null)
             {
-                cart = _context.Carts.Add(new Cart
-                {
-                    UserId = user.UserId,
-                    CreatedAt = DateTime.Now,
-                    CartItems = new List<CartItem>()
-                });
+                cart = _context.Carts.Add(Cart.Create(user.UserId));
             }
 
             return cart;

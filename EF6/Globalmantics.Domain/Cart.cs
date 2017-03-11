@@ -5,15 +5,19 @@ namespace Globalmantics.Domain
 {
     public class Cart
     {
-        public int CartId { get; set; }
+        private Cart()
+        {
+        }
 
-        public User User { get; set; }
-        public int UserId { get; set; }
+        public int CartId { get; private set; }
 
-        public ICollection<CartItem> CartItems { get; set; } =
+        public User User { get; private set; }
+        public int UserId { get; private set; }
+
+        public ICollection<CartItem> CartItems { get; private set; } =
             new List<CartItem>();
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
 
         public void AddItem(CatalogItem catalogItem, int quantity)
         {
@@ -22,6 +26,15 @@ namespace Globalmantics.Domain
                 CatalogItem = catalogItem,
                 Quantity = quantity
             });
+        }
+
+        public static Cart Create(int userId)
+        {
+            return new Cart
+            {
+                UserId = userId,
+                CreatedAt = DateTime.Now
+            };
         }
     }
 }
