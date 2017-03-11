@@ -19,7 +19,7 @@ namespace Globalmantics.Domain
 
         public int Quantity { get; private set; }
 
-        public void ChangeQuantity(int quantity)
+        public void IncreaseQuantity(int quantity)
         {
             Quantity += quantity;
         }
