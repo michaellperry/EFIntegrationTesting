@@ -20,7 +20,7 @@ namespace Globalmantics.DAL.Migrations
             }, new CatalogItem
             {
                 Sku = "CAFE-272",
-                Description = "1 Pound Etheopian Coffee Beans",
+                Description = "1 Pound Ethiopian Coffee Beans",
                 UnitPrice = 6.60m
             }, new CatalogItem
             {
