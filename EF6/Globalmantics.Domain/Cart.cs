@@ -14,5 +14,14 @@ namespace Globalmantics.Domain
             new List<CartItem>();
 
         public DateTime CreatedAt { get; set; }
+
+        public void AddItem(CatalogItem catalogItem, int quantity)
+        {
+            CartItems.Add(new CartItem
+            {
+                CatalogItem = catalogItem,
+                Quantity = quantity
+            });
+        }
     }
 }

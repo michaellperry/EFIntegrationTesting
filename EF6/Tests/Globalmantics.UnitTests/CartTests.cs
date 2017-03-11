@@ -19,5 +19,15 @@ namespace Globalmantics.UnitTests
 
             cart.CartItems.Count.Should().Be(0);
         }
+
+        [Test]
+        public void CanAddItemToCart()
+        {
+            var cart = new Cart();
+
+            cart.AddItem(new CatalogItem() { Sku = "CAFE-314" }, 2);
+
+            cart.CartItems.Count.Should().Be(1);
+        }
     }
 }

@@ -39,11 +39,7 @@ namespace Globalmantics.Logic
             var catalogItem = _context.CatalogItems
                 .FirstOrDefault(x => x.Sku == sku);
 
-            cart.CartItems.Add(new CartItem
-            {
-                CatalogItem = catalogItem,
-                Quantity = quantity
-            });
+            cart.AddItem(catalogItem, quantity);
         }
     }
 }
