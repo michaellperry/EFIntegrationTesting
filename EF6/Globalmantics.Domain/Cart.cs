@@ -20,6 +20,20 @@ namespace Globalmantics.Domain
 
         public DateTime CreatedAt { get; private set; }
 
+        public void AddItem(CatalogItem catalogItem, int quantity)
+        {
+            var cartItem = CartItems
+                .Where(x => x.CatalogItem == catalogItem)
+                .FirstOrDefault();
+            if (cartItem == null)
+            {
+                cartItem = CartItem.Create(catalogItem);
+                CartItems.Add(cartItem);
+            }
+
+            cartItem.IncreaseQuantity(quantity);
+        }
+
         public static Cart Create(int userId)
         {
             return new Cart
