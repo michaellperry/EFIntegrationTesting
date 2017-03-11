@@ -1,17 +1,36 @@
-﻿using Globalmantics.Domain;
+﻿using System;
+using Globalmantics.Domain;
 
 namespace Globalmantics.Domain
 {
     public class CartItem
     {
-        public int CartItemId { get; set; }
+        private CartItem()
+        {
+        }
 
-        public Cart Cart { get; set; }
-        public int CartId { get; set; }
+        public int CartItemId { get; private set; }
 
-        public CatalogItem CatalogItem { get; set; }
-        public int CatalogItemId { get; set; }
+        public Cart Cart { get; private set; }
+        public int CartId { get; private set; }
 
-        public int Quantity { get; set; }
+        public CatalogItem CatalogItem { get; private set; }
+        public int CatalogItemId { get; private set; }
+
+        public int Quantity { get; private set; }
+
+        public void ChangeQuantity(int quantity)
+        {
+            Quantity += quantity;
+        }
+
+        public static CartItem Create(CatalogItem catalogItem)
+        {
+            return new CartItem
+            {
+                CatalogItem = catalogItem,
+                Quantity = 0
+            };
+        }
     }
 }

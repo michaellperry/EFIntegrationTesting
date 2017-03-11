@@ -22,21 +22,15 @@ namespace Globalmantics.Domain
 
         public void AddItem(CatalogItem catalogItem, int quantity)
         {
-            var existingItem = CartItems
+            var cartItem = CartItems
                 .Where(x => x.CatalogItem == catalogItem)
                 .FirstOrDefault();
-            if (existingItem != null)
+            if (cartItem == null)
             {
-                existingItem.Quantity += quantity;
+                cartItem = CartItem.Create(catalogItem);
+                CartItems.Add(cartItem);
             }
-            else
-            {
-                CartItems.Add(new CartItem
-                {
-                    CatalogItem = catalogItem,
-                    Quantity = quantity
-                });
-            }
+            cartItem.ChangeQuantity(quantity);
         }
 
         public static Cart Create(int userId)
