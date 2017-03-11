@@ -7,15 +7,15 @@ namespace Globalmantics.Domain
     {
         private Cart()
         {
+            CartItems = new List<CartItem>();
         }
 
         public int CartId { get; private set; }
 
-        public User User { get; private set; }
+        public virtual User User { get; private set; }
         public int UserId { get; private set; }
 
-        public ICollection<CartItem> CartItems { get; private set; } =
-            new List<CartItem>();
+        public virtual ICollection<CartItem> CartItems { get; }
 
         public DateTime CreatedAt { get; private set; }
 
