@@ -21,10 +21,7 @@ namespace Globalmantics.Logic
 
             if (user == null)
             {
-                user = _context.Users.Add(new User
-                {
-                    Email = emailAddress
-                });
+                user = _context.Users.Add(User.Create(emailAddress));
             }
 
             return user;
