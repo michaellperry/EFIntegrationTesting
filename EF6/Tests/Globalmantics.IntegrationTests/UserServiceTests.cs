@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Globalmantics.DAL;
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using Globalmantics.Logic;
 using NUnit.Framework;
 

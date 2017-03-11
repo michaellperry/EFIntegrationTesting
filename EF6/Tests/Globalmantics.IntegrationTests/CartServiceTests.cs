@@ -3,7 +3,7 @@ using Globalmantics.DAL;
 using Globalmantics.Logic;
 using NUnit.Framework;
 using System.Linq;
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using System;
 
 namespace Globalmantics.IntegrationTests

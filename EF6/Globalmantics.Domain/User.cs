@@ -1,4 +1,4 @@
-﻿namespace Globalmantics.DAL.Entities
+﻿namespace Globalmantics.Domain
 {
     public class User
     {

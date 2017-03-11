@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9E6BF78B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Globalmantics.IntegrationTests", "Tests\Globalmantics.IntegrationTests\Globalmantics.IntegrationTests.csproj", "{3D11CD93-6232-4AB0-A6A3-8E03B83AFDD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Globalmantics.UnitTests", "Tests\Globalmantics.UnitTests\Globalmantics.UnitTests.csproj", "{9FA66046-39B6-47AC-B03B-93E0A09E5B5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Globalmantics.Domain", "Globalmantics.Domain\Globalmantics.Domain.csproj", "{7CD9B549-412E-43CF-A7D0-1CD0C4A96322}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,11 +39,20 @@ Global
 		{3D11CD93-6232-4AB0-A6A3-8E03B83AFDD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D11CD93-6232-4AB0-A6A3-8E03B83AFDD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D11CD93-6232-4AB0-A6A3-8E03B83AFDD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA66046-39B6-47AC-B03B-93E0A09E5B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA66046-39B6-47AC-B03B-93E0A09E5B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA66046-39B6-47AC-B03B-93E0A09E5B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA66046-39B6-47AC-B03B-93E0A09E5B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD9B549-412E-43CF-A7D0-1CD0C4A96322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD9B549-412E-43CF-A7D0-1CD0C4A96322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD9B549-412E-43CF-A7D0-1CD0C4A96322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD9B549-412E-43CF-A7D0-1CD0C4A96322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3D11CD93-6232-4AB0-A6A3-8E03B83AFDD4} = {9E6BF78B-99C2-483E-999F-6BD729F6DE53}
+		{9FA66046-39B6-47AC-B03B-93E0A09E5B5E} = {9E6BF78B-99C2-483E-999F-6BD729F6DE53}
 	EndGlobalSection
 EndGlobal

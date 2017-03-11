@@ -1,4 +1,6 @@
-﻿namespace Globalmantics.DAL.Entities
+﻿using Globalmantics.Domain;
+
+namespace Globalmantics.Domain
 {
     public class CartItem
     {

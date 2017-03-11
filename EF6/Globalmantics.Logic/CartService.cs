@@ -1,5 +1,5 @@
 ﻿using Globalmantics.DAL;
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

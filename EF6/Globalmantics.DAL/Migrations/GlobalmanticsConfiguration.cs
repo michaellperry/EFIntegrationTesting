@@ -1,4 +1,4 @@
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using System.Data.Entity.Migrations;
 
 namespace Globalmantics.DAL.Migrations
