@@ -12,22 +12,22 @@ namespace Globalmantics.DAL.Migrations
 
         protected override void Seed(GlobalmanticsContext context)
         {
-            context.CatalogItems.AddOrUpdate(x => x.Sku, new CatalogItem
-            {
-                Sku = "CAFE-314",
-                Description = "1 Pound Guatemalan Coffee Beans",
-                UnitPrice = 18.80m
-            }, new CatalogItem
-            {
-                Sku = "CAFE-272",
-                Description = "1 Pound Ethiopian Coffee Beans",
-                UnitPrice = 6.60m
-            }, new CatalogItem
-            {
-                Sku = "DR-4142",
-                Description = "Drum roasting kit",
-                UnitPrice = 425.00m
-            });
+            context.CatalogItems.AddOrUpdate(x => x.Sku, CatalogItem.Create
+            (
+                sku: "CAFE-314",
+                description: "1 Pound Guatemalan Coffee Beans",
+                unitPrice: 18.80m
+            ), CatalogItem.Create
+            (
+                sku: "CAFE-272",
+                description: "1 Pound Ethiopian Coffee Beans",
+                unitPrice: 6.60m
+            ), CatalogItem.Create
+            (
+                sku: "DR-4142",
+                description: "Drum roasting kit",
+                unitPrice: 425.00m
+            ));
         }
     }
 }

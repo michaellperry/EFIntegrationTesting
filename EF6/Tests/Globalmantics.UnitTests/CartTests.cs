@@ -20,7 +20,7 @@ namespace Globalmantics.UnitTests
         public void CanAddItemToCart()
         {
             var cart = Cart.Create(0);
-            var catalogItem = new CatalogItem() { Sku = "CAFE-314" };
+            CatalogItem catalogItem = GivenCatalogItem();
 
             cart.AddItem(catalogItem, 2);
 
@@ -31,13 +31,23 @@ namespace Globalmantics.UnitTests
         public void GroupsItemsOfSameKind()
         {
             var cart = Cart.Create(0);
-            var catalogItem = new CatalogItem() { Sku = "CAFE-314" };
+            var catalogItem = GivenCatalogItem();
 
             cart.AddItem(catalogItem, 2);
             cart.AddItem(catalogItem, 1);
 
             cart.CartItems.Count.Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(3);
+        }
+
+        private static CatalogItem GivenCatalogItem()
+        {
+            return CatalogItem.Create
+            (
+                sku: "CAFE-314",
+                description: "1 Pound Guatemalan Coffee Beans",
+                unitPrice: 18.80m
+            );
         }
     }
 }
