@@ -1,5 +1,5 @@
 ﻿using Globalmantics.DAL;
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using System.Linq;
 
 namespace Globalmantics.Logic
@@ -20,10 +20,7 @@ namespace Globalmantics.Logic
 
             if (user == null)
             {
-                user = _context.User.Add(new User
-                {
-                    Email = emailAddress
-                }).Entity;
+                user = _context.User.Add(User.Create(emailAddress)).Entity;
             }
 
             return user;

@@ -1,4 +1,4 @@
-﻿using Globalmantics.DAL.Entities;
+﻿using Globalmantics.Domain;
 using System.Collections.Generic;
 
 namespace Globalmantics.DAL
