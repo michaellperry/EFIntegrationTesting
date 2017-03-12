@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using Globalmantics.Logic;
 using Xunit;
 

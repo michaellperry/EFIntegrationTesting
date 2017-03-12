@@ -33,7 +33,7 @@ namespace Globalmantics.DAL
                 {
                     if (pair.current != null)
                     {
-                        foreach (var property in typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                        foreach (var property in typeof(TEntity).GetTypeInfo().GetProperties(BindingFlags.Public | BindingFlags.Instance))
                         {
                             property.SetValue(pair.current, property.GetValue(pair.desired));
                         }

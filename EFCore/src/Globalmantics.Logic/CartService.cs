@@ -1,5 +1,5 @@
 ﻿using Globalmantics.DAL;
-using Globalmantics.DAL.Entities;
+using Globalmantics.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,12 +24,7 @@ namespace Globalmantics.Logic
 
             if (cart == null)
             {
-                cart = _context.Cart.Add(new Cart
-                {
-                    UserId = user.UserId,
-                    CreatedAt = DateTime.Now,
-                    CartItems = new List<CartItem>()
-                }).Entity;
+                cart = _context.Cart.Add(Cart.Create(user.UserId)).Entity;
             }
 
             return cart;
@@ -40,11 +35,9 @@ namespace Globalmantics.Logic
             var catalogItem = _context.CatalogItem
                 .FirstOrDefault(x => x.Sku == sku);
 
-            cart.CartItems.Add(new CartItem
-            {
-                CatalogItem = catalogItem,
-                Quantity = quantity
-            });
+            var cartItem = CartItem.Create(catalogItem);
+            cartItem.IncreaseQuantity(quantity);
+            cart.CartItems.Add(cartItem);
         }
     }
 }
