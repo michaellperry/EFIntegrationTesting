@@ -19,11 +19,61 @@ namespace Globalmantics.UnitTests
         public void CanGetCartWithNoItems()
         {
             var context = new InMemoryDataContext();
-            var cartService = new CartService(new Repository(context));
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
 
-            var cart = cartService.GetCartForUser(User.Create("test@globalmantics.com"));
+            var user = userService.GetUserByEmail("test@globalmantics.com");
+            var cart = cartService.GetCartForUser(user);
+            context.Commit();
 
             cart.CartItems.Count().Should().Be(0);
+        }
+
+        [Test]
+        public void DifferentUsersHaveDifferentCarts()
+        {
+            var context = new InMemoryDataContext();
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
+
+            var user1 = userService.GetUserByEmail("test1@globalmantics.com");
+            var cart1 = cartService.GetCartForUser(user1);
+            context.Commit();
+
+            var user2 = userService.GetUserByEmail("test2@globalmantics.com");
+            var cart2 = cartService.GetCartForUser(user2);
+            context.Commit();
+
+            cart1.Should().NotBeSameAs(cart2);
+        }
+
+        [Test]
+        public void CanGetCartWithOneItem()
+        {
+            var context = new InMemoryDataContext();
+            var initialUser = context.Add(User.Create("test@globalmantics.com"));
+            var initialCart = context.Add(Cart.Create(initialUser.UserId));
+            var catalogItem = context.Add(CatalogItem.Create
+            (
+                sku: "CAFE-314",
+                description: "1 Pound Guatemalan Coffee Beans",
+                unitPrice: 18.80m
+            ));
+            initialCart.AddItem(catalogItem, 2);
+            context.Commit();
+
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
+
+            var user = userService.GetUserByEmail("test2@globalmantics.com");
+            var cart = cartService.GetCartForUser(user);
+            context.Commit();
+
+            cart.CartItems.Count().Should().Be(1);
+            cart.CartItems.Single().Quantity.Should().Be(2);
         }
     }
 }
