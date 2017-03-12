@@ -30,6 +30,32 @@ namespace Globalmantics.IntegrationTests
         }
 
         [Test]
+        public void CanLoadCartWithOneItem()
+        {
+            var configuration = new GlobalmanticsMappingConfiguration();
+            var context = new DataContext("GlobalmanticsContext", configuration);
+
+            var initialUser = context.Add(User.Create("test@globalmantics.com"));
+            context.Commit();
+            var initialCart = context.Add(Cart.Create(initialUser.UserId));
+            var catalogItem = context.AsQueryable<CatalogItem>()
+                .Single(x => x.Sku == "CAFE-314");
+            initialCart.AddItem(catalogItem, 2);
+            context.Commit();
+
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
+
+            var user = GivenUser(context, userService);
+
+            var cart = cartService.GetCartForUser(user);
+            context.SaveChanges();
+
+            cart.CartItems.Count().Should().Be(1);
+        }
+
+        [Test]
         public void CanAddItemToCart()
         {
             var configuration = new GlobalmanticsMappingConfiguration();
