@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Globalmantics.IntegrationTests
 {
+    [Isolated]
     [TestFixture]
     public class CartServiceTests
     {
@@ -33,6 +34,23 @@ namespace Globalmantics.IntegrationTests
         public void CanLoadCartWithOneItem()
         {
             var configuration = new GlobalmanticsMappingConfiguration();
+            InitializeCartWithOneItem(configuration);
+
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
+
+            var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.SaveChanges();
+            var cart = cartService.GetCartForUser(user);
+            context.SaveChanges();
+
+            cart.CartItems.Count().Should().Be(1);
+        }
+
+        private static void InitializeCartWithOneItem(GlobalmanticsMappingConfiguration configuration)
+        {
             var context = new DataContext("GlobalmanticsContext", configuration);
 
             var initialUser = context.Add(User.Create("test@globalmantics.com"));
@@ -42,17 +60,6 @@ namespace Globalmantics.IntegrationTests
                 .Single(x => x.Sku == "CAFE-314");
             initialCart.AddItem(catalogItem, 2);
             context.Commit();
-
-            var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository);
-
-            var user = GivenUser(context, userService);
-
-            var cart = cartService.GetCartForUser(user);
-            context.SaveChanges();
-
-            cart.CartItems.Count().Should().Be(1);
         }
 
         [Test]
