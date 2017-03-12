@@ -24,6 +24,7 @@ namespace Globalmantics.UnitTests
             var cartService = new CartService(repository);
 
             var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.Commit();
             var cart = cartService.GetCartForUser(user);
             context.Commit();
 
@@ -39,10 +40,12 @@ namespace Globalmantics.UnitTests
             var cartService = new CartService(repository);
 
             var user1 = userService.GetUserByEmail("test1@globalmantics.com");
+            context.Commit();
             var cart1 = cartService.GetCartForUser(user1);
             context.Commit();
 
             var user2 = userService.GetUserByEmail("test2@globalmantics.com");
+            context.Commit();
             var cart2 = cartService.GetCartForUser(user2);
             context.Commit();
 
@@ -54,6 +57,7 @@ namespace Globalmantics.UnitTests
         {
             var context = new InMemoryDataContext();
             var initialUser = context.Add(User.Create("test@globalmantics.com"));
+            context.Commit();
             var initialCart = context.Add(Cart.Create(initialUser.UserId));
             var catalogItem = context.Add(CatalogItem.Create
             (
@@ -68,7 +72,8 @@ namespace Globalmantics.UnitTests
             var userService = new UserService(repository);
             var cartService = new CartService(repository);
 
-            var user = userService.GetUserByEmail("test2@globalmantics.com");
+            var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.Commit();
             var cart = cartService.GetCartForUser(user);
             context.Commit();
 
