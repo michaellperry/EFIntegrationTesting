@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalmanticsContext.cs" />
+    <Compile Include="GlobalmanticsMappingConfiguration.cs" />
     <Compile Include="Migrations\201702051824189_AddedUser.cs" />
     <Compile Include="Migrations\201702051824189_AddedUser.Designer.cs">
       <DependentUpon>201702051824189_AddedUser.cs</DependentUpon>

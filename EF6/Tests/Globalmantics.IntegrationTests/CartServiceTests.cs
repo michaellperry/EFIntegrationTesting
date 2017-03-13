@@ -16,9 +16,11 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CartIsInitiallyEmpty()
         {
-            var context = new GlobalmanticsContext();
-            var userService = new UserService(context);
-            var cartService = new CartService(context);
+            var configuration = new GlobalmanticsMappingConfiguration();
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -31,9 +33,11 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanAddItemToCart()
         {
-            var context = new GlobalmanticsContext();
-            var userService = new UserService(context);
-            var cartService = new CartService(context);
+            var configuration = new GlobalmanticsMappingConfiguration();
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -49,9 +53,11 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void GroupItemsOfSameKind()
         {
-            var context = new GlobalmanticsContext();
-            var userService = new UserService(context);
-            var cartService = new CartService(context);
+            var configuration = new GlobalmanticsMappingConfiguration();
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -66,11 +72,11 @@ namespace Globalmantics.IntegrationTests
             cart.CartItems.Single().Quantity.Should().Be(3);
         }
 
-        private static User GivenUser(GlobalmanticsContext context, UserService userService)
+        private static User GivenUser(IUnitOfWork context, UserService userService)
         {
             var user = userService.GetUserByEmail(
                 $"test{Guid.NewGuid().ToString()}@globalmantics.com");
-            context.SaveChanges();
+            context.Commit();
             return user;
         }
     }

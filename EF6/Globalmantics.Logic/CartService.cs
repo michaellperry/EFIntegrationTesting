@@ -8,21 +8,20 @@ namespace Globalmantics.Logic
 {
     public class CartService
     {
-        private readonly GlobalmanticsContext _context;
+        private readonly IRepository _repository;
 
-        public CartService(GlobalmanticsContext context)
+        public CartService(IRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public Cart GetCartForUser(User user)
         {
-            var cart = _context.Carts
-                .FirstOrDefault(x => x.UserId == user.UserId);
+            var cart = _repository.Find(new CartForUser(user.UserId));
 
             if (cart == null)
             {
-                cart = _context.Carts.Add(Cart.Create(user.UserId));
+                cart = _repository.Context.Add(Cart.Create(user.UserId));
             }
 
             return cart;
@@ -30,8 +29,7 @@ namespace Globalmantics.Logic
 
         public void AddItemToCart(Cart cart, string sku, int quantity)
         {
-            var catalogItem = _context.CatalogItems
-                .FirstOrDefault(x => x.Sku == sku);
+            var catalogItem = _repository.Find(new CatalogItemBySku(sku));
 
             cart.AddItem(catalogItem, quantity);
         }
