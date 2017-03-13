@@ -10,6 +10,7 @@ namespace Globalmantics.Logic.Queries
         public CartForUser(int userId)
         {
             ContextQuery = c => c.AsQueryable<Cart>()
+                .Include(x => x.CartItems)
                 .FirstOrDefault(x => x.UserId == userId);
         }
     }

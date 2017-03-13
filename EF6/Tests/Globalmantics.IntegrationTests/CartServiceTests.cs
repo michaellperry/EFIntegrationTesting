@@ -72,6 +72,38 @@ namespace Globalmantics.IntegrationTests
             cart.CartItems.Single().Quantity.Should().Be(3);
         }
 
+        [Test]
+        public void CanLoadCartWithOneItem()
+        {
+            var configuration = new GlobalmanticsMappingConfiguration();
+            InitializeCartWithOneItem(configuration);
+            var context = new DataContext("GlobalmanticsContext", configuration);
+
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
+
+            var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.Commit();
+            var cart = cartService.GetCartForUser(user);
+            context.Commit();
+
+            cart.CartItems.Count().Should().Be(1);
+            cart.CartItems.Single().Quantity.Should().Be(2);
+        }
+
+        private void InitializeCartWithOneItem(IMappingConfiguration configuration)
+        {
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var user = context.Add(User.Create("test@globalmantics.com"));
+            context.Commit();
+            var cart = context.Add(Cart.Create(user.UserId));
+            var catalogItem = context.AsQueryable<CatalogItem>()
+                .Single(x => x.Sku == "CAFE-314");
+            cart.AddItem(catalogItem, 2);
+            context.Commit();
+        }
+
         private static User GivenUser(IUnitOfWork context, UserService userService)
         {
             var user = userService.GetUserByEmail(
