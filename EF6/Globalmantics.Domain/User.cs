@@ -2,8 +2,14 @@
 
 namespace Globalmantics.Domain
 {
-    public class User
+    public class User : IIdentifiable<int>
     {
+        int IIdentifiable<int>.Id
+        {
+            get { return UserId; }
+            set { UserId = value; }
+        }
+
         private User()
         {
         }

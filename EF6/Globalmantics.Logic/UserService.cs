@@ -8,21 +8,20 @@ namespace Globalmantics.Logic
 {
     public class UserService
     {
-        private GlobalmanticsContext _context;
+        private IRepository _repository;
 
-        public UserService(GlobalmanticsContext context)
+        public UserService(IRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public User GetUserByEmail(string emailAddress)
         {
-            var user = _context.Users
-                .FirstOrDefault(x => x.Email == emailAddress);
+            var user = _repository.Find(new UserByEmail(emailAddress));
 
             if (user == null)
             {
-                user = _context.Users.Add(User.Create(emailAddress));
+                user = _repository.Context.Add(User.Create(emailAddress));
             }
 
             return user;
