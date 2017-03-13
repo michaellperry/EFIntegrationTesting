@@ -5,14 +5,8 @@ using System.Linq;
 
 namespace Globalmantics.Domain
 {
-    public class Cart : IIdentifiable<int>
+    public class Cart
     {
-        int IIdentifiable<int>.Id
-        {
-            get { return CartId; }
-            set { CartId = value; }
-        }
-
         private Cart()
         {
             CartItems = new List<CartItem>();

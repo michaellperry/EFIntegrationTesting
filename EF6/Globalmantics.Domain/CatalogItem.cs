@@ -2,14 +2,8 @@
 
 namespace Globalmantics.Domain
 {
-    public class CatalogItem : IIdentifiable<int>
+    public class CatalogItem
     {
-        int IIdentifiable<int>.Id
-        {
-            get { return CatalogItemId; }
-            set { CatalogItemId = value; }
-        }
-
         private CatalogItem()
         {
         }

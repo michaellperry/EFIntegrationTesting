@@ -1,25 +1,28 @@
-﻿using Globalmantics.Domain;
+﻿using Globalmantics.DAL;
+using Globalmantics.Domain;
 using Globalmantics.Logic.Queries;
 using Highway.Data;
+using System.Linq;
 
 namespace Globalmantics.Logic
 {
     public class CartService
     {
-        private readonly IRepository _repository;
+        private readonly GlobalmanticsContext _context;
 
-        public CartService(IRepository repository)
+        public CartService(GlobalmanticsContext context)
         {
-            _repository = repository;
+            _context = context;
         }
 
         public Cart GetCartForUser(User user)
         {
-            var cart = _repository.Find(new CartForUser(user.UserId));
+            var cart = _context.Carts
+                .FirstOrDefault(x => x.UserId == user.UserId);
 
             if (cart == null)
             {
-                cart = _repository.Context.Add(Cart.Create(user.UserId));
+                cart = _context.Carts.Add(Cart.Create(user.UserId));
             }
 
             return cart;
@@ -27,7 +30,8 @@ namespace Globalmantics.Logic
 
         public void AddItemToCart(Cart cart, string sku, int quantity)
         {
-            var catalogItem = _repository.Find(new CatalogItemBySku(sku));
+            var catalogItem = _context.CatalogItems
+                .FirstOrDefault(x => x.Sku == sku);
 
             cart.AddItem(catalogItem, quantity);
         }

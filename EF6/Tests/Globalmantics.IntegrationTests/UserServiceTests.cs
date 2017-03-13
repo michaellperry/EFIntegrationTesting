@@ -13,10 +13,8 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanCreateUser()
         {
-            var configuration = new GlobalmanticsMappingConfiguration();
-            var context = new DataContext("GlobalmanticsContext", configuration);
-            var repository = new Repository(context);
-            var userService = new UserService(repository);
+            var context = new GlobalmanticsContext();
+            var userService = new UserService(context);
 
             User user = userService.GetUserByEmail(
                 "test@globalmantics.com");

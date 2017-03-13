@@ -4,14 +4,8 @@ using Highway.Data;
 
 namespace Globalmantics.Domain
 {
-    public class CartItem : IIdentifiable<int>
+    public class CartItem
     {
-        int IIdentifiable<int>.Id
-        {
-            get { return CartItemId; }
-            set { CartItemId = value; }
-        }
-
         private CartItem()
         {
         }
