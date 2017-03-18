@@ -4,10 +4,7 @@ using Globalmantics.Domain;
 using Globalmantics.Logic;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Globalmantics.UnitTests
@@ -17,8 +14,10 @@ namespace Globalmantics.UnitTests
         [Fact]
         public void CanLoadCartWithNoItems()
         {
+            string databaseName = Guid.NewGuid().ToString();
+
             var context = new GlobalmanticsContext(new DbContextOptionsBuilder()
-                .UseInMemoryDatabase()
+                .UseInMemoryDatabase(databaseName: databaseName)
                 .Options);
             var userService = new UserService(context);
             var cartService = new CartService(context);
@@ -34,10 +33,12 @@ namespace Globalmantics.UnitTests
         [Fact]
         public void CanLoadCartWithOneItem()
         {
+            string databaseName = Guid.NewGuid().ToString();
+            InitializeCartWithOneItem(databaseName);
+
             var context = new GlobalmanticsContext(new DbContextOptionsBuilder()
-                .UseInMemoryDatabase()
+                .UseInMemoryDatabase(databaseName: databaseName)
                 .Options);
-            InitializeCartWithOneItem();
 
             var userService = new UserService(context);
             var cartService = new CartService(context);
@@ -51,10 +52,10 @@ namespace Globalmantics.UnitTests
             cart.CartItems.Single().Quantity.Should().Be(2);
         }
 
-        private void InitializeCartWithOneItem()
+        private static void InitializeCartWithOneItem(string databaseName)
         {
             var context = new GlobalmanticsContext(new DbContextOptionsBuilder()
-                .UseInMemoryDatabase()
+                .UseInMemoryDatabase(databaseName: databaseName)
                 .Options);
 
             var user = context.Add(User.Create("test@globalmantics.com")).Entity;
