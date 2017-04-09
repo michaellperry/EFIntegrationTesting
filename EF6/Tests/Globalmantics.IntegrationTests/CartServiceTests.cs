@@ -16,9 +16,9 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CartIsInitiallyEmpty()
         {
-            var services = GivenServices();
+            var services = CartServiceContext.GivenServices();
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
             cart.CartItems.Count().Should().Be(0);
         }
@@ -26,11 +26,11 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanAddItemToCart()
         {
-            var services = GivenServices();
+            var services = CartServiceContext.GivenServices();
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
-            WhenAddItemToCart(services, cart);
+            services.WhenAddItemToCart(cart);
 
             cart.CartItems.Count().Should().Be(1);
         }
@@ -38,12 +38,12 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void GroupItemsOfSameKind()
         {
-            var services = GivenServices();
+            var services = CartServiceContext.GivenServices();
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
-            WhenAddItemToCart(services, cart, quantity: 2);
-            WhenAddItemToCart(services, cart, quantity: 1);
+            services.WhenAddItemToCart(cart, quantity: 2);
+            services.WhenAddItemToCart(cart, quantity: 1);
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(3);
@@ -52,10 +52,10 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanLoadCartWithOneItem()
         {
-            var services = GivenServices();
+            var services = CartServiceContext.GivenServices();
             InitializeCartWithOneItem(services.EmailAddress);
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(2);
@@ -72,48 +72,6 @@ namespace Globalmantics.IntegrationTests
                 .Single(x => x.Sku == "CAFE-314");
             cart.AddItem(catalogItem, 2);
             context.Commit();
-        }
-
-        private static CartServiceContext GivenServices()
-        {
-            var configuration = new GlobalmanticsMappingConfiguration();
-            var context = new DataContext("GlobalmanticsContext", configuration);
-            var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository, new MockLog());
-
-            var services = new CartServiceContext
-            {
-                Context = context,
-                UserService = userService,
-                CartService = cartService
-            };
-            return services;
-        }
-
-        private static User GivenUser(IUnitOfWork context, UserService userService, string emailAddress)
-        {
-            var user = userService.GetUserByEmail(
-                emailAddress);
-            context.Commit();
-            return user;
-        }
-
-        private static Cart WhenLoadCart(CartServiceContext services)
-        {
-            var user = GivenUser(services.Context, services.UserService,
-                services.EmailAddress);
-
-            var cart = services.CartService.GetCartForUser(user);
-            services.Context.SaveChanges();
-            return cart;
-        }
-
-        private static void WhenAddItemToCart(CartServiceContext services, Cart cart,
-            int quantity = 1)
-        {
-            services.CartService.AddItemToCart(cart, "CAFE-314", quantity);
-            services.Context.SaveChanges();
         }
     }
 }
