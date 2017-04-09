@@ -18,7 +18,7 @@ namespace Globalmantics.IntegrationTests
         {
             var services = GivenServices();
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
             cart.CartItems.Count().Should().Be(0);
         }
@@ -28,10 +28,9 @@ namespace Globalmantics.IntegrationTests
         {
             var services = GivenServices();
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
-            services.CartService.AddItemToCart(cart, "CAFE-314", 2);
-            services.DataContext.SaveChanges();
+            services.WhenAddItemToCart(cart);
 
             cart.CartItems.Count().Should().Be(1);
         }
@@ -41,11 +40,10 @@ namespace Globalmantics.IntegrationTests
         {
             var services = GivenServices();
 
-            var cart = WhenLoadCart(services);
+            var cart = services.WhenLoadCart();
 
-            services.CartService.AddItemToCart(cart, "CAFE-314", 2);
-            services.CartService.AddItemToCart(cart, "CAFE-314", 1);
-            services.DataContext.SaveChanges();
+            services.WhenAddItemToCart(cart, quantity: 2);
+            services.WhenAddItemToCart(cart, quantity: 1);
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(3);
@@ -54,11 +52,10 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanLoadCartWithOneItem()
         {
-            var emailAddress = GivenEmailAddress();
-            InitializeCartWithOneItem(emailAddress);
             var services = GivenServices();
+            InitializeCartWithOneItem(services.EmailAddress);
 
-            var cart = WhenLoadCart(services, emailAddress);
+            var cart = services.WhenLoadCart();
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(2);
@@ -93,35 +90,9 @@ namespace Globalmantics.IntegrationTests
             };
         }
 
-        private static User GivenUser(ServiceContext services, string emailAddress)
-        {
-            var user = services.UserService.GetUserByEmail(emailAddress);
-            services.DataContext.Commit();
-            return user;
-        }
-
-        private static string GivenEmailAddress()
-        {
-            return $"test{Guid.NewGuid().ToString()}@globalmantics.com";
-        }
-
         private static CartService GivenCartService(IRepository repository)
         {
             return new CartService(repository, new MockLog());
-        }
-
-        private static Cart WhenLoadCart(ServiceContext services)
-        {
-            return WhenLoadCart(services, GivenEmailAddress());
-        }
-
-        private static Cart WhenLoadCart(ServiceContext services, string emailAddress)
-        {
-            var user = GivenUser(services, emailAddress);
-
-            var cart = services.CartService.GetCartForUser(user);
-            services.DataContext.SaveChanges();
-            return cart;
         }
     }
 }
