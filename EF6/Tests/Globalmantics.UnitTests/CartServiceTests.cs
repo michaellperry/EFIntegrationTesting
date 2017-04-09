@@ -18,15 +18,12 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CanLoadCartWithNoItems()
         {
-            var context = new InMemoryDataContext();
-            var repository = new Repository(context);
-            var userService = GivenUserService(repository);
-            var cartService = GivenCartService(repository);
+            var services = GivenServices();
 
-            var user = userService.GetUserByEmail("test@globalmantics.com");
-            context.Commit();
-            var cart = cartService.GetCartForUser(user);
-            context.Commit();
+            var user = services.UserService.GetUserByEmail("test@globalmantics.com");
+            services.Context.Commit();
+            var cart = services.CartService.GetCartForUser(user);
+            services.Context.Commit();
 
             cart.CartItems.Count().Should().Be(0);
         }
@@ -34,20 +31,31 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CanLoadCartWithOneItem()
         {
-            var context = new InMemoryDataContext();
-            InitializeCartWithOneItem(context);
+            var services = GivenServices();
+            InitializeCartWithOneItem(services.Context);
 
+            var user = services.UserService.GetUserByEmail("test@globalmantics.com");
+            services.Context.Commit();
+            var cart = services.CartService.GetCartForUser(user);
+            services.Context.Commit();
+
+            cart.CartItems.Count().Should().Be(1);
+            cart.CartItems.Single().Quantity.Should().Be(2);
+        }
+
+        private static ServiceContext GivenServices()
+        {
+            var context = new InMemoryDataContext();
             var repository = new Repository(context);
             var userService = GivenUserService(repository);
             var cartService = GivenCartService(repository);
 
-            var user = userService.GetUserByEmail("test@globalmantics.com");
-            context.Commit();
-            var cart = cartService.GetCartForUser(user);
-            context.Commit();
-
-            cart.CartItems.Count().Should().Be(1);
-            cart.CartItems.Single().Quantity.Should().Be(2);
+            return new ServiceContext
+            {
+                Context = context,
+                UserService = userService,
+                CartService = cartService
+            };
         }
 
         private void InitializeCartWithOneItem(InMemoryDataContext context)
