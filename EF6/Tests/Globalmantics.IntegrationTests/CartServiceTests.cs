@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Globalmantics.DAL;
 using Globalmantics.Domain;
-using Globalmantics.Logic;
 using Highway.Data;
 using NUnit.Framework;
 using System;
@@ -16,7 +15,7 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CartIsInitiallyEmpty()
         {
-            var services = GivenServices();
+            var services = CartTestContext.GivenServices();
 
             var cart = services.WhenLoadCart();
 
@@ -26,7 +25,7 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanAddItemToCart()
         {
-            var services = GivenServices();
+            var services = CartTestContext.GivenServices();
 
             var cart = services.WhenLoadCart();
 
@@ -38,7 +37,7 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void GroupItemsOfSameKind()
         {
-            var services = GivenServices();
+            var services = CartTestContext.GivenServices();
 
             var cart = services.WhenLoadCart();
 
@@ -52,7 +51,7 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void CanLoadCartWithOneItem()
         {
-            var services = GivenServices();
+            var services = CartTestContext.GivenServices();
             InitializeCartWithOneItem(services.EmailAddress);
 
             var cart = services.WhenLoadCart();
@@ -64,7 +63,7 @@ namespace Globalmantics.IntegrationTests
         [Test]
         public void FailsToAddItemNotInCatalog()
         {
-            var services = GivenServices();
+            var services = CartTestContext.GivenServices();
             var cart = services.WhenLoadCart();
             Action add = () => services.WhenAddItemToCart(cart, sku: "NOT-THERE");
             add.ShouldThrow<ArgumentException>("Item not found in catalog");
@@ -82,27 +81,6 @@ namespace Globalmantics.IntegrationTests
                 .Single(x => x.Sku == "CAFE-314");
             cart.AddItem(catalogItem, 2);
             context.Commit();
-        }
-
-        private static ServiceContext GivenServices()
-        {
-            var configuration = new GlobalmanticsMappingConfiguration();
-            var context = new DataContext("GlobalmanticsContext", configuration);
-            var repository = new Repository(context);
-            var userService = GivenUserService(repository);
-            var cartService = GivenCartService(repository);
-
-            return new ServiceContext
-            {
-                DataContext = context,
-                UserService = userService,
-                CartService = cartService
-            };
-        }
-
-        private static CartService GivenCartService(IRepository repository)
-        {
-            return new CartService(repository, new MockLog());
         }
     }
 }

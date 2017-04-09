@@ -98,7 +98,7 @@
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="IsolatedAttribute.cs" />
     <Compile Include="MockLog.cs" />
-    <Compile Include="ServiceContext.cs" />
+    <Compile Include="CartTestContext.cs" />
     <Compile Include="TestSetup.cs" />
     <Compile Include="UserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

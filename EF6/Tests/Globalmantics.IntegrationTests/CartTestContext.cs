@@ -2,14 +2,12 @@
 using Globalmantics.Logic;
 using Highway.Data;
 using Globalmantics.Domain;
+using Globalmantics.DAL;
 
 namespace Globalmantics.IntegrationTests
 {
-    public class ServiceContext
+    public class CartTestContext
     {
-        public ServiceContext()
-        {
-        }
         public CartService CartService { get; set; }
         public DataContext DataContext { get; set; }
         public UserService UserService { get; set; }
@@ -36,6 +34,23 @@ namespace Globalmantics.IntegrationTests
         {
             CartService.AddItemToCart(cart, sku, quantity);
             DataContext.SaveChanges();
+        }
+
+        public static CartTestContext GivenServices()
+        {
+            var configuration = new GlobalmanticsMappingConfiguration();
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var repository = new Repository(context);
+            var log = new MockLog();
+            var userService = new UserService(repository, log);
+            var cartService = new CartService(repository, log);
+
+            return new CartTestContext
+            {
+                DataContext = context,
+                UserService = userService,
+                CartService = cartService
+            };
         }
     }
 }
