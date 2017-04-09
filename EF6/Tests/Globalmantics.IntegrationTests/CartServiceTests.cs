@@ -30,8 +30,7 @@ namespace Globalmantics.IntegrationTests
 
             var cart = WhenLoadCart(services);
 
-            services.CartService.AddItemToCart(cart, "CAFE-314", 2);
-            services.Context.SaveChanges();
+            WhenAddItemToCart(services, cart);
 
             cart.CartItems.Count().Should().Be(1);
         }
@@ -43,8 +42,8 @@ namespace Globalmantics.IntegrationTests
 
             Cart cart = WhenLoadCart(services);
 
-            services.CartService.AddItemToCart(cart, "CAFE-314", 2);
-            services.CartService.AddItemToCart(cart, "CAFE-314", 1);
+            WhenAddItemToCart(services, cart, 2);
+            WhenAddItemToCart(services, cart, 1);
             services.Context.SaveChanges();
 
             cart.CartItems.Count().Should().Be(1);
@@ -109,6 +108,13 @@ namespace Globalmantics.IntegrationTests
             var cart = services.CartService.GetCartForUser(user);
             services.Context.SaveChanges();
             return cart;
+        }
+
+        private static void WhenAddItemToCart(CartServiceContext services, Cart cart,
+            int quantity = 1)
+        {
+            services.CartService.AddItemToCart(cart, "CAFE-314", quantity);
+            services.Context.SaveChanges();
         }
     }
 }
