@@ -20,7 +20,7 @@ namespace Globalmantics.IntegrationTests
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
             var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -37,7 +37,7 @@ namespace Globalmantics.IntegrationTests
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
             var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -57,7 +57,7 @@ namespace Globalmantics.IntegrationTests
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
             var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -81,7 +81,7 @@ namespace Globalmantics.IntegrationTests
 
             var repository = new Repository(context);
             var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = userService.GetUserByEmail("test@globalmantics.com");
             context.Commit();
@@ -102,6 +102,11 @@ namespace Globalmantics.IntegrationTests
                 .Single(x => x.Sku == "CAFE-314");
             cart.AddItem(catalogItem, 2);
             context.Commit();
+        }
+
+        private static CartService GivenCartService(Repository repository)
+        {
+            return new CartService(repository, new MockLog());
         }
 
         private static User GivenUser(IUnitOfWork context, UserService userService)
