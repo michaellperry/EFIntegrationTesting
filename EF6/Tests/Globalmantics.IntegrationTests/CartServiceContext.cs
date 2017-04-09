@@ -6,16 +6,14 @@ using Globalmantics.DAL;
 
 namespace Globalmantics.IntegrationTests
 {
-    public class CartServiceContext
+    public class CartServiceContext : UserServiceContext
     {
-        public CartServiceContext()
+        public CartService CartService { get; }
+
+        protected CartServiceContext()
         {
+            CartService = new CartService(Repository, new MockLog());
         }
-        public CartService CartService { get; set; }
-        public DataContext Context { get; set; }
-        public UserService UserService { get; set; }
-        public string EmailAddress { get; } =
-            $"test{Guid.NewGuid().ToString()}@globalmantics.com";
 
         public Cart WhenLoadCart()
         {
@@ -34,21 +32,9 @@ namespace Globalmantics.IntegrationTests
             Context.SaveChanges();
         }
 
-        public static CartServiceContext GivenServices()
+        public static new CartServiceContext GivenServices()
         {
-            var configuration = new GlobalmanticsMappingConfiguration();
-            var context = new DataContext("GlobalmanticsContext", configuration);
-            var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository, new MockLog());
-
-            var services = new CartServiceContext
-            {
-                Context = context,
-                UserService = userService,
-                CartService = cartService
-            };
-            return services;
+            return new CartServiceContext();
         }
     }
 }
