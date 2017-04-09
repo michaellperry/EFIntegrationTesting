@@ -94,7 +94,7 @@ namespace Globalmantics.IntegrationTests
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
             var userService = new UserService(repository);
-            var cartService = GivenCartService(repository);
+            var cartService = new CartService(repository, new MockLog());
 
             var services = new CartServiceContext
             {
@@ -103,11 +103,6 @@ namespace Globalmantics.IntegrationTests
                 CartService = cartService
             };
             return services;
-        }
-
-        private static CartService GivenCartService(Repository repository)
-        {
-            return new CartService(repository, new MockLog());
         }
 
         private static User GivenUser(IUnitOfWork context, UserService userService)
