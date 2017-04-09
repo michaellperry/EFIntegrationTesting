@@ -9,10 +9,12 @@ namespace Globalmantics.Logic
     public class CartService
     {
         private readonly IRepository _repository;
+        private readonly ILog _log;
 
-        public CartService(IRepository repository)
+        public CartService(IRepository repository, ILog log)
         {
             _repository = repository;
+            _log = log;
         }
 
         public Cart GetCartForUser(User user)

@@ -11,7 +11,7 @@ namespace Globalmantics.IntegrationTests
 {
     [Isolated]
     [TestFixture]
-    public class CartServiceTests
+    public class CartServiceTests : IntegrationTests
     {
         [Test]
         public void CartIsInitiallyEmpty()
@@ -19,8 +19,8 @@ namespace Globalmantics.IntegrationTests
             var configuration = new GlobalmanticsMappingConfiguration();
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var userService = GivenUserService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -36,8 +36,8 @@ namespace Globalmantics.IntegrationTests
             var configuration = new GlobalmanticsMappingConfiguration();
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var userService = GivenUserService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -56,8 +56,8 @@ namespace Globalmantics.IntegrationTests
             var configuration = new GlobalmanticsMappingConfiguration();
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var userService = GivenUserService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = GivenUser(context, userService);
 
@@ -80,8 +80,8 @@ namespace Globalmantics.IntegrationTests
             var context = new DataContext("GlobalmanticsContext", configuration);
 
             var repository = new Repository(context);
-            var userService = new UserService(repository);
-            var cartService = new CartService(repository);
+            var userService = GivenUserService(repository);
+            var cartService = GivenCartService(repository);
 
             var user = userService.GetUserByEmail("test@globalmantics.com");
             context.Commit();
@@ -110,6 +110,11 @@ namespace Globalmantics.IntegrationTests
                 $"test{Guid.NewGuid().ToString()}@globalmantics.com");
             context.Commit();
             return user;
+        }
+
+        private static CartService GivenCartService(IRepository repository)
+        {
+            return new CartService(repository, new MockLog());
         }
     }
 }

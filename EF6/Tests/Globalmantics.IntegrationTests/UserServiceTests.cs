@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Globalmantics.IntegrationTests
 {
     [TestFixture]
-    public class UserServiceTests
+    public class UserServiceTests : IntegrationTests
     {
         [Test]
         public void CanCreateUser()
@@ -16,7 +16,7 @@ namespace Globalmantics.IntegrationTests
             var configuration = new GlobalmanticsMappingConfiguration();
             var context = new DataContext("GlobalmanticsContext", configuration);
             var repository = new Repository(context);
-            var userService = new UserService(repository);
+            var userService = GivenUserService(repository);
 
             User user = userService.GetUserByEmail(
                 "test@globalmantics.com");

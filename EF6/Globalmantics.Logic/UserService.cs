@@ -1,18 +1,18 @@
-﻿using Globalmantics.DAL;
-using Globalmantics.Domain;
+﻿using Globalmantics.Domain;
 using Globalmantics.Logic.Queries;
 using Highway.Data;
-using System.Linq;
 
 namespace Globalmantics.Logic
 {
     public class UserService
     {
-        private IRepository _repository;
+        private readonly IRepository _repository;
+        private readonly ILog _log;
 
-        public UserService(IRepository repository)
+        public UserService(IRepository repository, ILog log)
         {
             _repository = repository;
+            _log = log;
         }
 
         public User GetUserByEmail(string emailAddress)
