@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartServiceContext.cs" />
     <Compile Include="CartServiceTests.cs" />
     <Compile Include="IsolatedAttribute.cs" />
     <Compile Include="MockLog.cs" />
