@@ -61,6 +61,16 @@ namespace Globalmantics.IntegrationTests
             cart.CartItems.Single().Quantity.Should().Be(2);
         }
 
+        [Test]
+        public void FailsToAddItemNotInCatalog()
+        {
+            var services = GivenServices();
+            var cart = services.WhenLoadCart();
+            Action add = () => services.WhenAddItemToCart(cart, sku: "NOT-THERE");
+            add.ShouldThrow<ArgumentException>("Item not found in catalog");
+            cart.CartItems.Count.Should().Be(0);
+        }
+
         private void InitializeCartWithOneItem(string emailAddress)
         {
             var configuration = new GlobalmanticsMappingConfiguration();

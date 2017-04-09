@@ -32,9 +32,9 @@ namespace Globalmantics.IntegrationTests
             return cart;
         }
 
-        public void WhenAddItemToCart(Cart cart, int quantity = 1)
+        public void WhenAddItemToCart(Cart cart, string sku = "CAFE-314", int quantity = 1)
         {
-            CartService.AddItemToCart(cart, "CAFE-314", quantity);
+            CartService.AddItemToCart(cart, sku, quantity);
             DataContext.SaveChanges();
         }
     }
