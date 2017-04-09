@@ -40,11 +40,10 @@ namespace Globalmantics.IntegrationTests
         {
             var services = GivenServices();
 
-            Cart cart = WhenLoadCart(services);
+            var cart = WhenLoadCart(services);
 
-            WhenAddItemToCart(services, cart, 2);
-            WhenAddItemToCart(services, cart, 1);
-            services.Context.SaveChanges();
+            WhenAddItemToCart(services, cart, quantity: 2);
+            WhenAddItemToCart(services, cart, quantity: 1);
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(3);
