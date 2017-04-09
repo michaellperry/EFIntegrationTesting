@@ -23,6 +23,13 @@ namespace Globalmantics.IntegrationTests
             return user;
         }
 
+        public User WhenGetUserByEmail()
+        {
+            User user = UserService.GetUserByEmail(EmailAddress);
+            DataContext.Commit();
+            return user;
+        }
+
         public static UserTestContext GivenServices()
         {
             return new UserTestContext();
