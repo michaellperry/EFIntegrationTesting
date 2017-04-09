@@ -4,11 +4,7 @@ using Globalmantics.Logic;
 using Highway.Data;
 using Highway.Data.Contexts;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Globalmantics.UnitTests
 {
@@ -20,10 +16,7 @@ namespace Globalmantics.UnitTests
         {
             var services = GivenServices();
 
-            var user = services.UserService.GetUserByEmail("test@globalmantics.com");
-            services.Context.Commit();
-            var cart = services.CartService.GetCartForUser(user);
-            services.Context.Commit();
+            var cart = WhenLoadCart(services);
 
             cart.CartItems.Count().Should().Be(0);
         }
@@ -34,10 +27,7 @@ namespace Globalmantics.UnitTests
             var services = GivenServices();
             InitializeCartWithOneItem(services.Context);
 
-            var user = services.UserService.GetUserByEmail("test@globalmantics.com");
-            services.Context.Commit();
-            var cart = services.CartService.GetCartForUser(user);
-            services.Context.Commit();
+            var cart = WhenLoadCart(services);
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(2);
@@ -76,6 +66,15 @@ namespace Globalmantics.UnitTests
         private static CartService GivenCartService(IRepository repository)
         {
             return new CartService(repository, new MockLog());
+        }
+
+        private static Cart WhenLoadCart(ServiceContext services)
+        {
+            var user = services.UserService.GetUserByEmail("test@globalmantics.com");
+            services.Context.Commit();
+            var cart = services.CartService.GetCartForUser(user);
+            services.Context.Commit();
+            return cart;
         }
     }
 }
