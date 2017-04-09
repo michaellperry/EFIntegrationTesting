@@ -12,5 +12,7 @@ namespace Globalmantics.IntegrationTests
         public CartService CartService { get; set; }
         public DataContext Context { get; set; }
         public UserService UserService { get; set; }
+        public string EmailAddress { get; } =
+            $"test{Guid.NewGuid().ToString()}@globalmantics.com";
     }
 }
