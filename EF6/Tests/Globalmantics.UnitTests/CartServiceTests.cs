@@ -4,19 +4,29 @@ using Globalmantics.Logic;
 using Highway.Data;
 using Highway.Data.Contexts;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Globalmantics.UnitTests
 {
     [TestFixture]
-    public class CartServiceTests : UnitTests
+    public class CartServiceTests
     {
         [Test]
         public void CanLoadCartWithNoItems()
         {
-            var services = GivenServices();
+            var context = new InMemoryDataContext();
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
 
-            var cart = WhenLoadCart(services);
+            var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.Commit();
+            var cart = cartService.GetCartForUser(user);
+            context.Commit();
 
             cart.CartItems.Count().Should().Be(0);
         }
@@ -24,28 +34,20 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CanLoadCartWithOneItem()
         {
-            var services = GivenServices();
-            InitializeCartWithOneItem(services.Context);
+            var context = new InMemoryDataContext();
+            InitializeCartWithOneItem(context);
 
-            var cart = WhenLoadCart(services);
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
+            var cartService = new CartService(repository);
+
+            var user = userService.GetUserByEmail("test@globalmantics.com");
+            context.Commit();
+            var cart = cartService.GetCartForUser(user);
+            context.Commit();
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(2);
-        }
-
-        private static ServiceContext GivenServices()
-        {
-            var context = new InMemoryDataContext();
-            var repository = new Repository(context);
-            var userService = GivenUserService(repository);
-            var cartService = GivenCartService(repository);
-
-            return new ServiceContext
-            {
-                Context = context,
-                UserService = userService,
-                CartService = cartService
-            };
         }
 
         private void InitializeCartWithOneItem(InMemoryDataContext context)
@@ -61,20 +63,6 @@ namespace Globalmantics.UnitTests
             ));
             cart.AddItem(catalogItem, 2);
             context.Commit();
-        }
-
-        private static CartService GivenCartService(IRepository repository)
-        {
-            return new CartService(repository, new MockLog());
-        }
-
-        private static Cart WhenLoadCart(ServiceContext services)
-        {
-            var user = services.UserService.GetUserByEmail("test@globalmantics.com");
-            services.Context.Commit();
-            var cart = services.CartService.GetCartForUser(user);
-            services.Context.Commit();
-            return cart;
         }
     }
 }

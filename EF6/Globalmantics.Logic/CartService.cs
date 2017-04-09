@@ -2,7 +2,6 @@
 using Globalmantics.Domain;
 using Globalmantics.Logic.Queries;
 using Highway.Data;
-using System;
 using System.Linq;
 
 namespace Globalmantics.Logic
@@ -10,12 +9,10 @@ namespace Globalmantics.Logic
     public class CartService
     {
         private readonly IRepository _repository;
-        private readonly ILog _log;
 
-        public CartService(IRepository repository, ILog log)
+        public CartService(IRepository repository)
         {
             _repository = repository;
-            _log = log;
         }
 
         public Cart GetCartForUser(User user)
@@ -33,11 +30,6 @@ namespace Globalmantics.Logic
         public void AddItemToCart(Cart cart, string sku, int quantity)
         {
             var catalogItem = _repository.Find(new CatalogItemBySku(sku));
-
-            if (catalogItem == null)
-            {
-                throw new ArgumentException("Item not found in catalog.", nameof(sku));
-            }
 
             cart.AddItem(catalogItem, quantity);
         }

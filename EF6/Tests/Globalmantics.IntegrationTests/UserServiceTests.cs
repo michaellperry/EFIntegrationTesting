@@ -1,20 +1,29 @@
 ﻿using FluentAssertions;
+using Globalmantics.DAL;
+using Globalmantics.Domain;
+using Globalmantics.Logic;
+using Highway.Data;
 using NUnit.Framework;
 
 namespace Globalmantics.IntegrationTests
 {
     [TestFixture]
-    public class UserServiceTests : IntegrationTests
+    public class UserServiceTests
     {
         [Test]
         public void CanCreateUser()
         {
-            var services = UserTestContext.GivenServices();
+            var configuration = new GlobalmanticsMappingConfiguration();
+            var context = new DataContext("GlobalmanticsContext", configuration);
+            var repository = new Repository(context);
+            var userService = new UserService(repository);
 
-            var user = services.WhenGetUserByEmail();
+            User user = userService.GetUserByEmail(
+                "test@globalmantics.com");
+            context.SaveChanges();
 
             user.UserId.Should().NotBe(0);
-            user.Email.Should().Be(services.EmailAddress);
+            user.Email.Should().Be("test@globalmantics.com");
         }
     }
 }

@@ -95,15 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartServiceTests.cs" />
-    <Compile Include="IntegrationTests.cs" />
     <Compile Include="IsolatedAttribute.cs" />
     <Compile Include="MockLog.cs" />
-    <Compile Include="CartTestContext.cs" />
-    <Compile Include="TestContext.cs" />
     <Compile Include="TestSetup.cs" />
     <Compile Include="UserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserTestContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
