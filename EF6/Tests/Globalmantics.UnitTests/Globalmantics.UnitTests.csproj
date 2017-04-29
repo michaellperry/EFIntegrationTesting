@@ -76,8 +76,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartServiceContext.cs" />
     <Compile Include="CartServiceTests.cs" />
     <Compile Include="CartTests.cs" />
+    <Compile Include="LoyaltyCardTests.cs" />
     <Compile Include="MockLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserServiceTests.cs" />
