@@ -25,11 +25,12 @@ namespace Globalmantics.Domain
         public int CatalogItemId { get; private set; }
 
         public int Quantity { get; private set; }
-        public decimal LineTotal { get; private set; }
+        public decimal ItemTotal { get; private set; }
 
         public void IncreaseQuantity(int quantity)
         {
             Quantity += quantity;
+            ItemTotal = CatalogItem.UnitPrice * Quantity;
         }
 
         public static CartItem Create(CatalogItem catalogItem)

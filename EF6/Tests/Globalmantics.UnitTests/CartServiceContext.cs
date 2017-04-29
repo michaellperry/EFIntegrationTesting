@@ -12,6 +12,13 @@ namespace Globalmantics.UnitTests
 
         protected CartServiceContext()
         {
+            Context.Add(CatalogItem.Create
+            (
+                sku: "CAFE-314",
+                description: "1 Pound Guatemalan Coffee Beans",
+                unitPrice: 18.80m
+            ));
+
             CartService = new CartService(Repository, new MockLog());
         }
 
