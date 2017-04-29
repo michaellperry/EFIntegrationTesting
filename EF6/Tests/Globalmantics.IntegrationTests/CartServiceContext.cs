@@ -1,8 +1,5 @@
-﻿using Globalmantics.Logic;
-using System;
-using Highway.Data;
-using Globalmantics.Domain;
-using Globalmantics.DAL;
+﻿using Globalmantics.Domain;
+using Globalmantics.Logic;
 
 namespace Globalmantics.IntegrationTests
 {

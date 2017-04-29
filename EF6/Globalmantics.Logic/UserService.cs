@@ -1,8 +1,6 @@
-﻿using Globalmantics.DAL;
-using Globalmantics.Domain;
+﻿using Globalmantics.Domain;
 using Globalmantics.Logic.Queries;
 using Highway.Data;
-using System.Linq;
 
 namespace Globalmantics.Logic
 {

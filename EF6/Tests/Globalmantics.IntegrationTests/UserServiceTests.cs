@@ -1,8 +1,5 @@
 ﻿using FluentAssertions;
-using Globalmantics.DAL;
 using Globalmantics.Domain;
-using Globalmantics.Logic;
-using Highway.Data;
 using NUnit.Framework;
 
 namespace Globalmantics.IntegrationTests
