@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201702260441326_AddedSku.Designer.cs">
       <DependentUpon>201702260441326_AddedSku.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704292046498_AddedLoyaltyCard.cs" />
+    <Compile Include="Migrations\201704292046498_AddedLoyaltyCard.Designer.cs">
+      <DependentUpon>201704292046498_AddedLoyaltyCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\GlobalmanticsConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -118,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702260441326_AddedSku.resx">
       <DependentUpon>201702260441326_AddedSku.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704292046498_AddedLoyaltyCard.resx">
+      <DependentUpon>201704292046498_AddedLoyaltyCard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
