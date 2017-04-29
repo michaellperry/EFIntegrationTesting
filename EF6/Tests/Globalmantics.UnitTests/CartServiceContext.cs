@@ -26,11 +26,12 @@ namespace Globalmantics.UnitTests
 
         public void GivenLoyaltyCard()
         {
-            Context.Add(LoyaltyCard.Create
+            var loyaltyCard = Context.Add(LoyaltyCard.Create
             (
                 userId: User.UserId,
                 cardNumber: "35196429541"
             ));
+            User.LoyaltyCards.Add(loyaltyCard);
         }
 
         public Cart WhenLoadCart()
