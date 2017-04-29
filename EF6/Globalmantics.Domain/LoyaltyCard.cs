@@ -22,11 +22,12 @@ namespace Globalmantics.Domain
 
         public string CardNumber { get; private set; }
 
-        public static LoyaltyCard Create(int userId, string cardNumber)
+        public static LoyaltyCard Create(User user, string cardNumber)
         {
             return new LoyaltyCard
             {
-                UserId = userId,
+                User = user,
+                UserId = user.UserId,
                 CardNumber = cardNumber
             };
         }
