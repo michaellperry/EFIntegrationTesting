@@ -1,4 +1,5 @@
 ﻿using Highway.Data;
+using System.Collections.Generic;
 
 namespace Globalmantics.Domain
 {
@@ -12,11 +13,14 @@ namespace Globalmantics.Domain
 
         private User()
         {
+            LoyaltyCards = new List<LoyaltyCard>();
         }
 
         public int UserId { get; private set; }
 
         public string Email { get; private set; }
+
+        public ICollection<LoyaltyCard> LoyaltyCards { get; }
 
         public static User Create(string email)
         {

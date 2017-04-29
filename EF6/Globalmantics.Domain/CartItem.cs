@@ -1,6 +1,7 @@
 ﻿using System;
 using Globalmantics.Domain;
 using Highway.Data;
+using System.Linq;
 
 namespace Globalmantics.Domain
 {
@@ -30,7 +31,16 @@ namespace Globalmantics.Domain
         public void IncreaseQuantity(int quantity)
         {
             Quantity += quantity;
-            ItemTotal = CatalogItem.UnitPrice * Quantity;
+            decimal discount = ComputeDiscount();
+            ItemTotal = CatalogItem.UnitPrice * Quantity * (1.0m - discount);
+        }
+
+        private decimal ComputeDiscount()
+        {
+            if (Cart.User.LoyaltyCards.Any())
+                return 0.1m;
+
+            return 0.0m;
         }
 
         public static CartItem Create(CatalogItem catalogItem)
