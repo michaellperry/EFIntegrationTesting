@@ -1,10 +1,8 @@
-﻿using System;
-using FluentAssertions;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Globalmantics.DAL;
-using Highway.Data;
 using Globalmantics.Domain;
-using System.Linq;
+using Highway.Data;
+using NUnit.Framework;
 
 namespace Globalmantics.IntegrationTests
 {
