@@ -19,7 +19,7 @@ namespace Globalmantics.UnitTests
             var userService = new UserService(repository);
             var cartService = GivenCartService(repository);
 
-            var user = userService.GetUserByEmail("test@globalmantics.com");
+            var user = userService.CreateUser("test@globalmantics.com");
             context.Commit();
             var cart = cartService.GetCartForUser(user);
             context.Commit();

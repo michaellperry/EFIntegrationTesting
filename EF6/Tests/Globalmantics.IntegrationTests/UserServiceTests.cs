@@ -12,7 +12,7 @@ namespace Globalmantics.IntegrationTests
         {
             var services = UserServiceContext.GivenServices();
 
-            User user = services.WhenGetUserByEmail();
+            User user = services.WhenCreateUser();
 
             user.UserId.Should().NotBe(0);
             user.Email.Should().Be(services.EmailAddress);

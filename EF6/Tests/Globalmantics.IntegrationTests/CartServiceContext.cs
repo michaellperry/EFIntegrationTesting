@@ -15,6 +15,8 @@ namespace Globalmantics.IntegrationTests
         public Cart WhenLoadCart()
         {
             var user = UserService.GetUserByEmail(EmailAddress);
+            if (user == null)
+                user = UserService.CreateUser(EmailAddress);
             Context.Commit();
 
             var cart = CartService.GetCartForUser(user);

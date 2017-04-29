@@ -15,9 +15,9 @@ namespace Globalmantics.IntegrationTests
             UserService = new UserService(Repository);
         }
 
-        public User WhenGetUserByEmail()
+        public User WhenCreateUser()
         {
-            User user = UserService.GetUserByEmail(EmailAddress);
+            User user = UserService.CreateUser(EmailAddress);
             Context.SaveChanges();
             return user;
         }

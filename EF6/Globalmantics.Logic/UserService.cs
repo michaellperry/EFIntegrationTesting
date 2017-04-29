@@ -15,14 +15,12 @@ namespace Globalmantics.Logic
 
         public User GetUserByEmail(string emailAddress)
         {
-            var user = _repository.Find(new UserByEmail(emailAddress));
+            return _repository.Find(new UserByEmail(emailAddress));
+        }
 
-            if (user == null)
-            {
-                user = _repository.Context.Add(User.Create(emailAddress));
-            }
-
-            return user;
+        public User CreateUser(string emailAddress)
+        {
+            return _repository.Context.Add(User.Create(emailAddress));
         }
     }
 }

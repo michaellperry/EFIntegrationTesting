@@ -16,7 +16,7 @@ namespace Globalmantics.UnitTests
             var context = new InMemoryDataContext();
             var userService = new UserService(new Repository(context));
 
-            User user = userService.GetUserByEmail(
+            User user = userService.CreateUser(
                 "test@globalmantics.com");
             context.Commit();
 
