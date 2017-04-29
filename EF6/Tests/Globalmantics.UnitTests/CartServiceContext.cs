@@ -9,6 +9,7 @@ namespace Globalmantics.UnitTests
     public class CartServiceContext : UserServiceContext
     {
         public CartService CartService { get; }
+        public User User { get; }
 
         protected CartServiceContext()
         {
@@ -20,17 +21,21 @@ namespace Globalmantics.UnitTests
             ));
 
             CartService = new CartService(Repository, new MockLog());
+            User = WhenCreateUser();
         }
 
         public void GivenLoyaltyCard()
         {
-            throw new NotImplementedException();
+            Context.Add(LoyaltyCard.Create
+            (
+                userId: User.UserId,
+                cardNumber: "35196429541"
+            ));
         }
 
         public Cart WhenLoadCart()
         {
-            var user = WhenCreateUser();
-            return CartService.GetCartForUser(user);
+            return CartService.GetCartForUser(User);
         }
 
         public void WhenAddItemToCart(Cart cart,

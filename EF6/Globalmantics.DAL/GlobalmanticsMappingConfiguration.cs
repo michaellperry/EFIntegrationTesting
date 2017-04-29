@@ -25,6 +25,13 @@ namespace Globalmantics.DAL
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(
                     new IndexAttribute("IX_U_Email") { IsUnique = true }));
 
+            modelBuilder.Entity<LoyaltyCard>()
+                .Property(x => x.CardNumber)
+                .HasMaxLength(15)
+                .IsRequired()
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(
+                    new IndexAttribute("IX_U_CardNumber") { IsUnique = true }));
+
             modelBuilder.Entity<CatalogItem>()
                 .Property(x => x.Description)
                 .HasMaxLength(100)

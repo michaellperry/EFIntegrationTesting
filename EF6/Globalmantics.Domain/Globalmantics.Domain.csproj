@@ -67,6 +67,7 @@
     <Compile Include="Cart.cs" />
     <Compile Include="CartItem.cs" />
     <Compile Include="CatalogItem.cs" />
+    <Compile Include="LoyaltyCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

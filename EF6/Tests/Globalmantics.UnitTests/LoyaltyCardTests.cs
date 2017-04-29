@@ -7,7 +7,7 @@ namespace Globalmantics.UnitTests
     public class LoyaltyCardTests
     {
         [Test]
-        public void NoNotApplyDiscountToNonLoyaltyCardHolders()
+        public void DoNotApplyDiscountToNonLoyaltyCardHolders()
         {
             var services = CartServiceContext.GivenServices();
             var cart = services.WhenLoadCart();
