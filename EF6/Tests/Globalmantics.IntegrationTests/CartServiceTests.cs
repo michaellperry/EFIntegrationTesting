@@ -65,7 +65,7 @@ namespace Globalmantics.IntegrationTests
             var context = new DataContext("GlobalmanticsContext", configuration);
             var user = context.Add(User.Create(emailAddress));
             context.Commit();
-            var cart = context.Add(Cart.Create(user.UserId));
+            var cart = context.Add(Cart.Create(user));
             var catalogItem = context.AsQueryable<CatalogItem>()
                 .Single(x => x.Sku == "CAFE-314");
             cart.AddItem(catalogItem, 2);

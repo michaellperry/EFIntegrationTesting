@@ -23,7 +23,7 @@ namespace Globalmantics.Logic
 
             if (cart == null)
             {
-                cart = _repository.Context.Add(Cart.Create(user.UserId));
+                cart = _repository.Context.Add(Cart.Create(user));
             }
 
             return cart;

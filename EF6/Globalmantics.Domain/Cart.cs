@@ -34,18 +34,19 @@ namespace Globalmantics.Domain
                 .FirstOrDefault();
             if (cartItem == null)
             {
-                cartItem = CartItem.Create(catalogItem);
+                cartItem = CartItem.Create(this, catalogItem);
                 CartItems.Add(cartItem);
             }
 
             cartItem.IncreaseQuantity(quantity);
         }
 
-        public static Cart Create(int userId)
+        public static Cart Create(User user)
         {
             return new Cart
             {
-                UserId = userId,
+                User = user,
+                UserId = user.UserId,
                 CreatedAt = DateTime.Now
             };
         }

@@ -43,10 +43,11 @@ namespace Globalmantics.Domain
             return 0.0m;
         }
 
-        public static CartItem Create(CatalogItem catalogItem)
+        public static CartItem Create(Cart cart, CatalogItem catalogItem)
         {
             return new CartItem
             {
+                Cart = cart,
                 CatalogItem = catalogItem,
                 Quantity = 0
             };

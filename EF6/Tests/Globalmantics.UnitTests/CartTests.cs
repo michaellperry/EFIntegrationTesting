@@ -11,7 +11,7 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CartIsInitiallyEmpty()
         {
-            var cart = Cart.Create(0);
+            var cart = Cart.Create(GivenUser());
 
             cart.CartItems.Count().Should().Be(0);
         }
@@ -19,7 +19,7 @@ namespace Globalmantics.UnitTests
         [Test]
         public void CanAddItemToCart()
         {
-            var cart = Cart.Create(0);
+            var cart = Cart.Create(GivenUser());
             var catalogItem = CatalogItem.Create(
                 sku: "CAFE-314",
                 description: "1 Pound Guatemalan Coffee Beans",
@@ -33,7 +33,7 @@ namespace Globalmantics.UnitTests
         [Test]
         public void GroupItemsOfSameKind()
         {
-            var cart = Cart.Create(0);
+            var cart = Cart.Create(GivenUser());
             var catalogItem = CatalogItem.Create(
                 sku: "CAFE-314",
                 description: "1 Pound Guatemalan Coffee Beans",
@@ -44,6 +44,11 @@ namespace Globalmantics.UnitTests
 
             cart.CartItems.Count().Should().Be(1);
             cart.CartItems.Single().Quantity.Should().Be(3);
+        }
+
+        private static User GivenUser()
+        {
+            return User.Create("test@globalmantics.com");
         }
     }
 }

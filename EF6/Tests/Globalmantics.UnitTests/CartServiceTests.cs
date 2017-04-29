@@ -50,7 +50,7 @@ namespace Globalmantics.UnitTests
         {
             var user = context.Add(User.Create("test@globalmantics.com"));
             context.Commit();
-            var cart = context.Add(Cart.Create(user.UserId));
+            var cart = context.Add(Cart.Create(user));
             var catalogItem = context.Add(CatalogItem.Create
             (
                 sku: "CAFE-314",
