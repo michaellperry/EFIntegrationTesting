@@ -97,7 +97,6 @@
     <Compile Include="CartServiceContext.cs" />
     <Compile Include="CartServiceTests.cs" />
     <Compile Include="IsolatedAttribute.cs" />
-    <Compile Include="LoyaltyCardTests.cs" />
     <Compile Include="MockLog.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="TestSetup.cs" />

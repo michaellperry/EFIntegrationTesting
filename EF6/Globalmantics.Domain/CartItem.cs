@@ -37,9 +37,6 @@ namespace Globalmantics.Domain
 
         private decimal ComputeDiscount()
         {
-            if (Cart.User.LoyaltyCards.Any())
-                return 0.1m;
-
             return 0.0m;
         }
 
