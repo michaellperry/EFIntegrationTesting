@@ -19,7 +19,7 @@ namespace Globalmantics.UnitTests
             Cart cart = services.WhenLoadCart();
             services.WhenAddItemToCart(cart);
             cart.CartItems.Should().ContainSingle()
-                .Which.LineTotal.Should().Be(0.9m * 18.80m);
+                .Which.LineTotal.Should().Be(18.80m);
         }
 
         [Test]
