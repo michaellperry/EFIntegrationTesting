@@ -63,7 +63,7 @@ namespace Globalmantics.IntegrationTests
 
         private void InitializeCartWithOneItem(string emailAddress)
         {
-            using (var context = GivenGlobalmanticsContext())
+            using (var context = GivenGlobalmanticsContext(beginTransaction: false))
             {
                 var user = context.Add(User.Create(emailAddress)).Entity;
                 context.SaveChanges();
